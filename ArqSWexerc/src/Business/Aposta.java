@@ -5,10 +5,18 @@
  */
 package Business;
 
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author xavier
  */
 public class Aposta {
-    
+    private ArrayList<Float> odd;
+    String eq1;
+    String eq2;
+    int resultado[];
+    GregorianCalendar inicio;
+    GregorianCalendar fim;
 }
