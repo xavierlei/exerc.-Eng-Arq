@@ -14,6 +14,12 @@ public class Bid {
     private double valorApostado;
     private String nomeDaEquipa;
 
+    public Bid(double valorApostado, String nomeDaEquipa) {
+        this.valorApostado = valorApostado;
+        this.nomeDaEquipa = nomeDaEquipa;
+    }
+
+    
     public void setValorApostado(double valorApostado) {
         this.valorApostado = valorApostado;
     }
