@@ -8,12 +8,14 @@ package Business;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
  * @author xavier
  */
 public class Evento {
+    private Integer key;
     private ArrayList<Float> odd;
     private String eq1;
     private String eq2;
@@ -21,10 +23,11 @@ public class Evento {
     private GregorianCalendar inicio;
     private GregorianCalendar fim;
     private HashMap<Bid, Apostador> apostadores; 
+    private HashSet<Bookie> interessados;
 
     
     
-    public Evento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim) {
+    public Evento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
         this.odd = new ArrayList<Float>();
             for(Float o: odd) this.odd.add(o);
         this.eq1 = eq1;
@@ -33,7 +36,11 @@ public class Evento {
         this.inicio = inicio;
         this.fim = fim;
         this.apostadores = new HashMap<Bid, Apostador>();
+        this.key = key;
     }
+    
+    
+    
     
     
     //Gets
@@ -74,8 +81,8 @@ public class Evento {
     //Registar Evento 
     public boolean apostarAqui( Apostador apostador, double valor, String equipa ){
         if( equipa.equals(this.eq1) || equipa.equals(this.eq2) ){
-            Bid b = new Bid(valor, equipa);
-            this.apostadores.put(apostador, b);
+            
+            
         }else{
             return false;
         }
@@ -93,7 +100,9 @@ public class Evento {
     }
     
     
-    
+    public void addInteressados(Bookie bo){
+        this.interessados.add(bo);
+    }
     
     
     

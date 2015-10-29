@@ -5,37 +5,37 @@
  */
 package Business;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Miguel
  */
 public class Bid {
     
-    private double valorApostado;//valor
+    private double valorApostado;
     private String nomeDaEquipa;
+    private ArrayList<Float> odd;
 
-    public Bid(double valorApostado, String nomeDaEquipa) {
+    public Bid(double valorApostado, String nomeDaEquipa, ArrayList<Float> odd) {
         this.valorApostado = valorApostado;
         this.nomeDaEquipa = nomeDaEquipa;
+        this.odd = new ArrayList<Float>();
+            for(Float o: odd) this.odd.add(o);
     }
 
-    
-    public void setValorApostado(double valorApostado) {
-        this.valorApostado = valorApostado;
+    //  Gets
+    public double getValorApostado(){
+        return this.valorApostado;
     }
-
-    public void setNomeDaEquipa(String nomeDaEquipa) {
-        this.nomeDaEquipa = nomeDaEquipa;
+    public String getNomeDaEquipa(){
+        return this.nomeDaEquipa;
     }
-
-    public double getValorApostado() {
-        return valorApostado;
-    }
-
-    public String getNomeDaEquipa() {
-        return nomeDaEquipa;
+    public ArrayList<Float> getOdd() {
+        return odd;
     }
     
+
     
     
     
