@@ -32,7 +32,7 @@ public class Bookie {
         this.eventos.put(key, e);
     }
     public void interested(Integer k){
-        this.eventos.get(k).addInteressado(this);
+        this.eventos.get(k).addInteressados(this);
     }
     
 }

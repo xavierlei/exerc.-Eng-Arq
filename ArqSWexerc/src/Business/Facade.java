@@ -8,16 +8,22 @@ package Business;
 import Presentation.BusinessPresentation;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 /**
  *
  * @author xavier
  */
 public class Facade implements BusinessPresentation {
+    
+    private HashMap<String, Bookie> bookies;
+    private HashMap<String, Apostador> apostadores;
+    private HashMap<Integer, Evento> eventos;
 
     @Override
-    public void AbrirAposta(String Eq1, String Eq2, ArrayList<Float> odd, GregorianCalendar inicio, GregorianCalendar fim) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void AbrirAposta(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
+        Evento e = new Evento(odd,eq1,eq2, resultado,  inicio,  fim,  key);
+        this.eventos.put(key, e);
     }
 
     @Override
@@ -46,20 +52,33 @@ public class Facade implements BusinessPresentation {
     }
 
     @Override
-    public float ComprarCoins(float val) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean ComprarCoins(String apostador, float val) {
+        this.apostadores.get(apostador).adicionarBetcoins(val);
+        return true;
     }
 
     
 
     @Override
     public ArrayList<Evento> ConsultarApostas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Evento> res = new ArrayList<Evento>();
+        for(Integer k : this.eventos.keySet()){
+            res.add(eventos.get(k));
+        }
+        return res;
     }
 
     @Override
-    public boolean FazerApostas(String cod, String eq, float val) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean FazerApostas(Integer cod,String apostador, String eq, float val) {
+        if(!eventos.get(cod).isOpen()) return false;
+        apostadores.get(apostador).realizarAposta(eventos.get(cod), val, eq);
+        return true;
+    }
+
+    @Override
+    public void newBookie(String usr) {
+        Bookie b = new Bookie(usr, this.eventos);
+        bookies.put(usr, b);
     }
     
 }
