@@ -13,28 +13,26 @@ import java.util.HashMap;
  *
  * @author xavier
  */
-public class Aposta {
+public class Evento {
     private ArrayList<Float> odd;
     private String eq1;
     private String eq2;
     private int resultado[];
     private GregorianCalendar inicio;
     private GregorianCalendar fim;
-    private HashMap<Apostador, Bid > apostadores; //key = apostador , value = Bid (que é um tuplo(valor,equipa))
+    private HashMap<Bid, Apostador> apostadores; 
 
     
     
-    public Aposta(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim) {
+    public Evento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim) {
         this.odd = new ArrayList<Float>();
             for(Float o: odd) this.odd.add(o);
         this.eq1 = eq1;
         this.eq2 = eq2;
         this.resultado = resultado;
         this.inicio = inicio;
-        this.fim = fim;// fim
-        
-        
-        this.apostadores = new HashMap<Apostador,Bid>();
+        this.fim = fim;
+        this.apostadores = new HashMap<Bid, Apostador>();
     }
     
     
@@ -73,7 +71,7 @@ public class Aposta {
     }
     
     
-    //Registar Aposta 
+    //Registar Evento 
     public boolean apostarAqui( Apostador apostador, double valor, String equipa ){
         if( equipa.equals(this.eq1) || equipa.equals(this.eq2) ){
             Bid b = new Bid(valor, equipa);

@@ -15,9 +15,10 @@ import java.util.ArrayList;
 public class Apostador {
     private String nome;
     private double saldoBetCoins;
-    private ArrayList<Aposta> historicoApostas;
+    private ArrayList<Evento> historicoEventos;
+    private ArrayList<Bid> historicoApostas;
 
-    public Apostador(String nome, double saldoBetCoins, ArrayList<Aposta> historicoApostas) {
+    public Apostador(String nome, double saldoBetCoins, ArrayList<Bid> historicoApostas) {
         this.nome = nome;
         this.saldoBetCoins = saldoBetCoins;
         this.historicoApostas = historicoApostas;
@@ -29,7 +30,7 @@ public class Apostador {
         }
     }
     
-    public void realizarAposta( Aposta a, double valor, String equipa ){
+    public void realizarAposta( Evento a, double valor, String equipa ){
         this.historicoApostas.add(a);
         a.apostarAqui(this, valor, equipa);
     }

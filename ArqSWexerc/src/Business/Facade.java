@@ -53,7 +53,7 @@ public class Facade implements BusinessPresentation {
     
 
     @Override
-    public ArrayList<Aposta> ConsultarApostas() {
+    public ArrayList<Evento> ConsultarApostas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
