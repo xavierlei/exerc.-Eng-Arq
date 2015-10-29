@@ -24,7 +24,7 @@ public class Apostador {
         this.historicoApostas = historicoApostas;
     }
     
-    public void adicionarBetcoins( double bc ){
+    public void adicionarBetcoins( double bc ){//coiso
         if( bc > 0 ){
             this.saldoBetCoins += bc;
         }

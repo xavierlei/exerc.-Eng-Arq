@@ -31,7 +31,8 @@ public class Evento {
         this.eq2 = eq2;
         this.resultado = resultado;
         this.inicio = inicio;
-        this.fim = fim;
+        this.fim = fim;// fim
+        
         
         this.apostas = new HashMap<Bid, Apostador>();
     }

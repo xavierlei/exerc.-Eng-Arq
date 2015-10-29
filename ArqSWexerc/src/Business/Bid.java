@@ -11,7 +11,7 @@ package Business;
  */
 public class Bid {
     
-    private double valorApostado;
+    private double valorApostado;//valor
     private String nomeDaEquipa;
 
     public Bid(double valorApostado, String nomeDaEquipa) {
