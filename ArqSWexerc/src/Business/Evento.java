@@ -20,6 +20,7 @@ public class Evento {
     private String eq1;
     private String eq2;
     private int resultado[];
+    private boolean aberto;
     private GregorianCalendar inicio;
     private GregorianCalendar fim;
     private HashMap<Bid, Apostador> apostadores; 
@@ -45,15 +46,15 @@ public class Evento {
     
     //Gets
     public ArrayList<Float> getOdd() {
-        return odd;
+        return this.odd;
     }
 
     public String getEq1() {
-        return eq1;
+        return this.eq1;
     }
 
     public String getEq2() {
-        return eq2;
+        return this.eq2;
     }
     
    
@@ -79,17 +80,20 @@ public class Evento {
     
     
     //Registar Evento 
-    public boolean apostarAqui( Apostador apostador, double valor, String equipa ){
+    public Bid apostarAqui( Apostador apostador, double valor, String equipa ){
         if( equipa.equals(this.eq1) || equipa.equals(this.eq2) ){
-            
-            
+            Bid novaBid = new Bid( valor, equipa, this.odd );
+            return novaBid;
         }else{
-            return false;
+            return null;
         }
-        return true;
+        
     }
     
-    
+    //verificar se é possivel apostar 
+    public boolean isOpen(){
+        return this.aberto;
+    }
     
     
     

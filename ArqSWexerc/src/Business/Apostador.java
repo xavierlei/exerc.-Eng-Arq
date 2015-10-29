@@ -30,9 +30,13 @@ public class Apostador {
         }
     }
     
-    public void realizarAposta( Evento a, double valor, String equipa ){
-        this.historicoApostas.add(a);
-        a.apostarAqui(this, valor, equipa);
+    public void realizarAposta( Evento event, double valor, String equipa ){
+        
+        if(valor < this.saldoBetCoins){
+            this.historicoApostas.add( event.apostarAqui(this, valor, equipa) );
+            this.historicoEventos.add( event );
+        }
+        
     }
     
     
