@@ -13,18 +13,18 @@ import java.util.HashMap;
  *
  * @author xavier
  */
-public class Evento {
+public class Aposta {
     private ArrayList<Float> odd;
     private String eq1;
     private String eq2;
     private int resultado[];
     private GregorianCalendar inicio;
     private GregorianCalendar fim;
-    private HashMap<Bid, Apostador> apostas; 
+    private HashMap<Apostador, Bid > apostadores; //key = apostador , value = Bid (que é um tuplo(valor,equipa))
 
     
     
-    public Evento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim) {
+    public Aposta(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim) {
         this.odd = new ArrayList<Float>();
             for(Float o: odd) this.odd.add(o);
         this.eq1 = eq1;
@@ -34,7 +34,7 @@ public class Evento {
         this.fim = fim;// fim
         
         
-        this.apostas = new HashMap<Bid, Apostador>();
+        this.apostadores = new HashMap<Apostador,Bid>();
     }
     
     
@@ -73,11 +73,11 @@ public class Evento {
     }
     
     
-    //Registar Evento 
+    //Registar Aposta 
     public boolean apostarAqui( Apostador apostador, double valor, String equipa ){
         if( equipa.equals(this.eq1) || equipa.equals(this.eq2) ){
             Bid b = new Bid(valor, equipa);
-            this.apostas.put( b, apostador);
+            this.apostadores.put(apostador, b);
         }else{
             return false;
         }
@@ -88,7 +88,7 @@ public class Evento {
     
     
     
-    public ArrayList<Apostador> terminarAposta(int resultado[], GregorianCalendar data_fim){
+    public ArrayList<Apostador> terminarAposta(int resultado[]){
         ArrayList<Apostador> array = new ArrayList<>();
         
         return array;

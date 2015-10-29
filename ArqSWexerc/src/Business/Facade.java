@@ -14,15 +14,10 @@ import java.util.GregorianCalendar;
  * @author xavier
  */
 public class Facade implements BusinessPresentation {
-    
-    private ArrayList<Aposta> 
-    
-    
-    
+
     @Override
     public void AbrirAposta(String Eq1, String Eq2, ArrayList<Float> odd, GregorianCalendar inicio, GregorianCalendar fim) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -58,7 +53,7 @@ public class Facade implements BusinessPresentation {
     
 
     @Override
-    public ArrayList<Evento> ConsultarApostas() {
+    public ArrayList<Aposta> ConsultarApostas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -5,7 +5,7 @@
  */
 package Presentation;
 
-import Business.Evento;
+import Business.Aposta;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -23,6 +23,6 @@ public interface BusinessPresentation {
     public float ConsltarFundo();
     public float ComprarCoins(float val);
     
-    public ArrayList<Evento> ConsultarApostas();
+    public ArrayList<Aposta> ConsultarApostas();
     public boolean FazerApostas(String cod, String eq, float val);
 }
