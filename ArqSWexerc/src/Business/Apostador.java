@@ -16,6 +16,27 @@ public class Apostador {
     private String nome;
     private double saldoBetCoins;
     private ArrayList<Aposta> historicoApostas;
+
+    public Apostador(String nome, double saldoBetCoins, ArrayList<Aposta> historicoApostas) {
+        this.nome = nome;
+        this.saldoBetCoins = saldoBetCoins;
+        this.historicoApostas = historicoApostas;
+    }
+    
+    public void adicionarBetcoins( double bc ){
+        if( bc > 0 ){
+            this.saldoBetCoins += bc;
+        }
+    }
+    
+    public void realizarAposta( Aposta a, double valor, String equipa ){
+        this.historicoApostas.add(a);
+        a.apostarAqui(this, valor, equipa);
+    }
+    
+    
+    
+    
     
     
     

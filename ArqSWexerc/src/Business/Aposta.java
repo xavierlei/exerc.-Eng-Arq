@@ -37,8 +37,20 @@ public class Aposta {
     }
     
     
+    //Gets
+    public ArrayList<Float> getOdd() {
+        return odd;
+    }
+
+    public String getEq1() {
+        return eq1;
+    }
+
+    public String getEq2() {
+        return eq2;
+    }
     
-    
+   
     //Sets
     public void setOdd(ArrayList<Float> odd){
         for(Float o: odd) this.odd.add(o);
@@ -60,10 +72,7 @@ public class Aposta {
     }
     
     
-   
-    
-    
-    
+    //Registar Aposta 
     public boolean apostarAqui( Apostador apostador, double valor, String equipa ){
         if( equipa.equals(this.eq1) || equipa.equals(this.eq2) ){
             Bid b = new Bid(valor, equipa);
@@ -73,6 +82,9 @@ public class Aposta {
         }
         return true;
     }
+    
+    
+    
     
     
     public ArrayList<Apostador> terminarAposta(int resultado[]){
