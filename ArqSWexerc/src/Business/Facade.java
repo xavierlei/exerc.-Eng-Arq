@@ -21,18 +21,18 @@ public class Facade implements BusinessPresentation {
     private HashMap<Integer, Evento> eventos;
 
     @Override
-    public void AbrirAposta(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
+    public void AbrirEvento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
         Evento e = new Evento(odd,eq1,eq2, resultado,  inicio,  fim,  key);
         this.eventos.put(key, e);
     }
 
     @Override
-    public void FecharAposta(String cod) {
+    public void FecharEvento(String cod) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void TerminarAposta(String cod, int eq1, int eq2) {
+    public void TerminarEvento(String cod, int eq1, int eq2) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -60,7 +60,7 @@ public class Facade implements BusinessPresentation {
     
 
     @Override
-    public ArrayList<Evento> ConsultarApostas() {
+    public ArrayList<Evento> ConsultarEventos() {
         ArrayList<Evento> res = new ArrayList<Evento>();
         for(Integer k : this.eventos.keySet()){
             res.add(eventos.get(k));
