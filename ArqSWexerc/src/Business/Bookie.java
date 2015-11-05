@@ -16,10 +16,12 @@ import java.util.HashMap;
 public class Bookie {
     private String usrname;
     private HashMap<Integer, Evento> eventos;
-    public Bookie(String usr, HashMap<Integer, Evento> e){
+    public Bookie(String usr){
         this.usrname = usr;
-        this.eventos = e;
+        this.eventos = new HashMap<Integer, Evento>();
     }
+    
+    
     public String getUsrName(){
         return this.usrname;
     }
@@ -28,7 +30,7 @@ public class Bookie {
     }
     public void newEvent(ArrayList<Float> odd, String eq1, String eq2, int[] resultado,
             GregorianCalendar inicio, GregorianCalendar fim, Integer key){
-        Evento e = new Evento(odd,eq1,eq2,resultado,inicio,fim,key);
+        Evento e = new Evento(odd,eq1,eq2,inicio,fim,key);
         this.eventos.put(key, e);
     }
     public void interested(Integer k){

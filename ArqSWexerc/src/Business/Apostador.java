@@ -18,11 +18,19 @@ public class Apostador {
     private ArrayList<Evento> historicoEventos;
     private ArrayList<Bid> historicoApostas;
 
-    public Apostador(String nome, double saldoBetCoins, ArrayList<Bid> historicoApostas) {
+    public Apostador(String nome, double saldoBetCoins) {
         this.nome = nome;
         this.saldoBetCoins = saldoBetCoins;
-        this.historicoApostas = historicoApostas;
+        this.historicoEventos = new ArrayList<Evento>();
+        this.historicoApostas = new ArrayList<Bid>();
     }
+
+    public String getNome() {
+        return nome;
+    }
+    
+    
+    
     
     public void adicionarBetcoins( double bc ){//coiso
         if( bc > 0 ){

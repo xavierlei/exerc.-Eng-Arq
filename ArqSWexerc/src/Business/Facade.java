@@ -20,9 +20,34 @@ public class Facade implements BusinessPresentation {
     private HashMap<String, Apostador> apostadores;
     private HashMap<Integer, Evento> eventos;
 
+    public Facade() {
+        this.bookies = new HashMap<String, Bookie>();
+        this.apostadores = new HashMap<String, Apostador>();
+        this.eventos = new HashMap<Integer, Evento>();
+    }
+    
+    
+    
+    public void adicionarApostador( Apostador a ){
+        this.apostadores.put(a.getNome(), a);
+    }
+    public void adicionarBookie(Bookie b){
+        this.bookies.put( b.getUsrName(), b);
+    }
+    
+    public void printApostadores( Integer key ){
+        this.eventos.get(key).printApostadores();
+    }
+    
+    public void adicionarEvento( Evento e, Integer key ){
+        this.eventos.put( key, e);
+    }
+    
+    
+
     @Override
     public void AbrirEvento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
-        Evento e = new Evento(odd,eq1,eq2, resultado,  inicio,  fim,  key);
+        Evento e = new Evento(odd,eq1,eq2, inicio,  fim,  key);
         this.eventos.put(key, e);
     }
 
@@ -69,16 +94,18 @@ public class Facade implements BusinessPresentation {
     }
 
     @Override
-    public boolean FazerApostas(Integer cod,String apostador, String eq, float val) {
+    public boolean fazerAposta(Integer cod, String apostador, String eq, float val) {
         if(!eventos.get(cod).isOpen()) return false;
-        apostadores.get(apostador).realizarAposta(eventos.get(cod), val, eq);
+        this.apostadores.get(apostador).realizarAposta(eventos.get(cod), val, eq);
+        this.eventos.get(cod).apostarAqui( this.apostadores.get(apostador), val, eq );
         return true;
     }
 
+    /*
     @Override
     public void newBookie(String usr) {
-        Bookie b = new Bookie(usr, this.eventos);
+        Bookie b = new Bookie(usr);
         bookies.put(usr, b);
     }
-    
+    */
 }

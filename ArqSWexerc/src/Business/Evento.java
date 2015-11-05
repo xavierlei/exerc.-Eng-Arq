@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -28,12 +30,12 @@ public class Evento {
 
     
     
-    public Evento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
+    public Evento(ArrayList<Float> odd, String eq1, String eq2, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
         this.odd = new ArrayList<Float>();
             for(Float o: odd) this.odd.add(o);
         this.eq1 = eq1;
         this.eq2 = eq2;
-        this.resultado = resultado;
+        this.aberto = true;
         this.inicio = inicio;
         this.fim = fim;
         this.apostadores = new HashMap<Bid, Apostador>();
@@ -83,6 +85,7 @@ public class Evento {
     public Bid apostarAqui( Apostador apostador, double valor, String equipa ){
         if( equipa.equals(this.eq1) || equipa.equals(this.eq2) ){
             Bid novaBid = new Bid( valor, equipa, this.odd );
+            this.apostadores.put(novaBid, apostador);
             return novaBid;
         }else{
             return null;
@@ -106,6 +109,21 @@ public class Evento {
     
     public void addInteressados(Bookie bo){
         this.interessados.add(bo);
+    }
+    
+    
+    public void printApostadores(){
+        System.out.println("----------------");
+        System.out.println("Lista de Apostadores:");
+        System.out.println("Size: "+ this.apostadores.size());
+        Iterator it = this.apostadores.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        System.out.println(" ");
+        System.out.println("----------------");
     }
     
     
