@@ -28,7 +28,7 @@ public interface BusinessPresentation {
     public void adicionarEvento( Evento e, Integer key );
     public void printApostadores( Integer key );
     public void adicionarApostador( Apostador a );
-    public void adicionarBookie(Bookie b);
+    public void adicionarBookie(String usr);
     
     
     

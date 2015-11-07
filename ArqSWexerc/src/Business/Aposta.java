@@ -11,13 +11,13 @@ import java.util.ArrayList;
  *
  * @author Miguel
  */
-public class Bid {
+public class Aposta {
     
     private double valorApostado;
     private String nomeDaEquipa;
     private ArrayList<Float> odd;
 
-    public Bid(double valorApostado, String nomeDaEquipa, ArrayList<Float> odd) {
+    public Aposta(double valorApostado, String nomeDaEquipa, ArrayList<Float> odd) {
         this.valorApostado = valorApostado;
         this.nomeDaEquipa = nomeDaEquipa;
         this.odd = new ArrayList<Float>();

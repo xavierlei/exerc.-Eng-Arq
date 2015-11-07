@@ -39,7 +39,7 @@ public class ArqSWexerc {
         public ArrayList<Evento> ConsultarEventos();
         public boolean fazerAposta(Integer cod,String apostador, String eq, float val);
         */
-         Bookie bookie01 = new Bookie("António");
+        // Bookie bookie01 = new Bookie("António");
          Apostador apostador01 = new Apostador("Maria", 200 );
          
          ArrayList<Float> odd01 = new ArrayList<Float>();
@@ -55,7 +55,7 @@ public class ArqSWexerc {
          
         Facade casaDeApostas =  new Facade();
         casaDeApostas.adicionarApostador(apostador01);
-        casaDeApostas.adicionarBookie(bookie01);
+        casaDeApostas.adicionarBookie("António");
         casaDeApostas.adicionarEvento( evento01, 123 );
         
         

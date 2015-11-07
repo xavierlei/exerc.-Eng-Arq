@@ -16,24 +16,24 @@ public class Apostador {
     private String nome;
     private double saldoBetCoins;
     private ArrayList<Evento> historicoEventos;
-    private ArrayList<Bid> historicoApostas;
 
     public Apostador(String nome, double saldoBetCoins) {
         this.nome = nome;
         this.saldoBetCoins = saldoBetCoins;
         this.historicoEventos = new ArrayList<Evento>();
-        this.historicoApostas = new ArrayList<Bid>();
     }
 
     public String getNome() {
         return nome;
     }
     
+    public ArrayList<Evento> getHistorico(){return this.historicoEventos;}
+    
     
     
     
     public void adicionarBetcoins( double bc ){//coiso
-        if( bc > 0 ){
+        if( bc >= 0 ){
             this.saldoBetCoins += bc;
         }
     }
@@ -41,8 +41,8 @@ public class Apostador {
     public void realizarAposta( Evento event, double valor, String equipa ){
         
         if(valor < this.saldoBetCoins){
-            this.historicoApostas.add( event.apostarAqui(this, valor, equipa) );
             this.historicoEventos.add( event );
+            event.apostarAqui(this, valor, equipa);
         }
         
     }

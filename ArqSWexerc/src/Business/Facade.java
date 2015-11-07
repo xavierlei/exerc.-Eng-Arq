@@ -9,6 +9,7 @@ import Presentation.BusinessPresentation;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
@@ -19,11 +20,13 @@ public class Facade implements BusinessPresentation {
     private HashMap<String, Bookie> bookies;
     private HashMap<String, Apostador> apostadores;
     private HashMap<Integer, Evento> eventos;
+    private int idCounter;
 
     public Facade() {
         this.bookies = new HashMap<String, Bookie>();
         this.apostadores = new HashMap<String, Apostador>();
         this.eventos = new HashMap<Integer, Evento>();
+        this.idCounter = 0;
     }
     
     
@@ -36,7 +39,10 @@ public class Facade implements BusinessPresentation {
     }
     
     public void printApostadores( Integer key ){
-        this.eventos.get(key).printApostadores();
+        for(Apostador a : this.eventos.get(key).getApostas().keySet()){
+            System.out.println(a.getNome());
+        }
+        
     }
     
     public void adicionarEvento( Evento e, Integer key ){
@@ -95,17 +101,20 @@ public class Facade implements BusinessPresentation {
 
     @Override
     public boolean fazerAposta(Integer cod, String apostador, String eq, float val) {
+        
+        //mudar, o apostador é que faz a aposta
         if(!eventos.get(cod).isOpen()) return false;
         this.apostadores.get(apostador).realizarAposta(eventos.get(cod), val, eq);
-        this.eventos.get(cod).apostarAqui( this.apostadores.get(apostador), val, eq );
         return true;
     }
 
-    /*
     @Override
-    public void newBookie(String usr) {
-        Bookie b = new Bookie(usr);
-        bookies.put(usr, b);
+    public void adicionarBookie(String usr) {
+        Bookie bk = new Bookie(usr,this.eventos);
+        bookies.put(usr, bk);
     }
-    */
+
+    
+   
+    
 }
