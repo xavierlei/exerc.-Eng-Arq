@@ -19,7 +19,7 @@ public interface BusinessPresentation {
     public void AbrirEvento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, 
             GregorianCalendar inicio, GregorianCalendar fim, Integer key);
     public void FecharEvento(String cod);
-    public void TerminarEvento(String cod, int eq1, int eq2);
+    public void TerminarEvento(Integer cod, int eq1, int eq2);
     public void AddFundo(float val);
     public boolean RetirarFundo(float val);
     public float ConsltarFundo();

@@ -63,8 +63,10 @@ public class Facade implements BusinessPresentation {
     }
 
     @Override
-    public void TerminarEvento(String cod, int eq1, int eq2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void TerminarEvento(Integer cod, int eq1, int eq2) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result[] = {eq1,eq2};
+        this.eventos.get(cod).terminarEvento(result);
     }
 
     @Override

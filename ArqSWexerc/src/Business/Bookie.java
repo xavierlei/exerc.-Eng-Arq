@@ -60,6 +60,7 @@ public class Bookie implements Observer {
         Evento e = (Evento) o;
         interesses.remove(e.getKey());
         notificacoes.put(e.getKey(), e);
+        System.out.println("Bookie:"+this.usrname+"foi notificado pelo evento:"+ e.getEq1()+"Vs"+e.getEq2());
     }
     
 }

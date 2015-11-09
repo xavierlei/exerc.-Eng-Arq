@@ -71,6 +71,7 @@ public class Evento extends Observable {
     //Sets
     public void setOdd(ArrayList<Float> odd){
         for(Float o: odd) this.odd.add(o);
+        this.notifyAll();
     }
     public void setEquipa1(String eq1) {
         this.eq1 = eq1;
@@ -90,7 +91,7 @@ public class Evento extends Observable {
     
     
     public void addInteressado(Bookie b){
-        addObserver(b);
+        this.addObserver(b);
     }
     
     //Registar Evento 
@@ -136,10 +137,10 @@ public class Evento extends Observable {
                 }     
             }
         }
-        setChanged();
-        notifyObservers();
-        deleteObservers();
-        clearChanged();     
+        this.setChanged();
+        this.notifyObservers();
+        this.deleteObservers();
+        this.clearChanged();     
     }
         
 }

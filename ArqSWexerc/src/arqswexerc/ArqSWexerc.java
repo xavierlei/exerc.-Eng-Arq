@@ -85,6 +85,9 @@ public class ArqSWexerc {
                 case 3 : // imprimir apostadores do evento
                     casaDeApostas.printApostadores( 123 );
                     break;
+                case 4 : //fechar evento
+                    casaDeApostas.TerminarEvento( 123, 2, 2);
+                    break;
                 default:
                     break;
             }
