@@ -19,14 +19,14 @@ public class Bookie implements Observer {
     private String usrname;
     private HashMap<Integer, Evento> eventos;
     private HashMap<Integer, Evento> interesses;
-    private HashMap<Integer, Evento> notificacoes;
+    private HashMap<Integer, Notificacao> notificacoes;
     
     
     public Bookie(String usr){
         this.usrname = usr;
         this.eventos = new HashMap<Integer,Evento>();
         this.interesses = new HashMap<Integer,Evento>();
-        this.notificacoes = new HashMap<Integer,Evento>();
+        this.notificacoes = new HashMap<Integer,Notificacao>();
     }
     
     
@@ -34,7 +34,7 @@ public class Bookie implements Observer {
         this.usrname = usr;
         this.eventos = eventos;
         this.interesses = new HashMap<Integer,Evento>();
-        this.notificacoes = new HashMap<Integer,Evento>();
+        this.notificacoes = new HashMap<Integer,Notificacao>();
     }
     
     
@@ -44,18 +44,19 @@ public class Bookie implements Observer {
     public HashMap<Integer,Evento> getInterresses(){
         return this.interesses;
     }
-    public HashMap<Integer,Evento> getNotificacoes(){
+    public HashMap<Integer,Notificacao> getNotificacoes(){
         return this.notificacoes;
     }
     public void setUsrName(String name){
         this.usrname = name;
     }
     public void newEvent(Odd odd, String eq1, String eq2, int[] resultado,
-            GregorianCalendar inicio, GregorianCalendar fim, Integer key){
-        Evento e = new Evento(odd,eq1,eq2,inicio,fim,key);
+        GregorianCalendar inicio, GregorianCalendar fim, Integer key){
+        Evento e = new Evento(odd,eq1,eq2,inicio,fim,key,this);
         this.eventos.put(key, e);
     }
     public void interested(Integer k){
+        if(!eventos.containsKey(k)) return;
         this.interesses.put(k, this.eventos.get(k));
         this.eventos.get(k).addInteressado(this);
     }
@@ -66,9 +67,10 @@ public class Bookie implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Evento e = (Evento) o;
-        interesses.remove(e.getKey());
-        notificacoes.put(e.getKey(), e);
-        System.out.println("Bookie:"+this.usrname+"foi notificado pelo evento:"+ e.getEq1()+"Vs"+e.getEq2());
+        Notificacao n = (Notificacao)arg;
+        notificacoes.put(e.getKey(), n);
+        //System.out.println("Bookie:"+this.usrname+"foi notificado pelo evento:"+ e.getEq1()+"Vs"+e.getEq2());
+        System.out.println("NOTIFICATION: "+n.toString());
     }
     
 }

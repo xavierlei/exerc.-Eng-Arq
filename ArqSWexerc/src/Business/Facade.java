@@ -32,11 +32,20 @@ public class Facade implements BusinessPresentation {
     
     
     
-    
+    public Bookie bookieRegister(String usr){
+        Bookie b = new Bookie(usr);
+        if(!this.bookies.containsKey(b)){
+            this.bookies.put(usr, b);
+            return b;
+        }
+        return null;    
+    }
     public Evento getEvento( int key ){
         return this.eventos.get(key);
     }
-    
+    public HashMap<Integer,Notificacao> getNotificacoes(String bookie){
+        return this.bookies.get(bookie).getNotificacoes();
+    }
     public void adicionarApostador( Apostador a ){
         this.apostadores.put(a.getNome(), a);
     }
@@ -48,6 +57,12 @@ public class Facade implements BusinessPresentation {
         for(Apostador a : this.eventos.get(key).getApostas().keySet()){
             System.out.println( a.getNome() );
         }
+    }
+    
+    public void interested(String bookie,Integer k){
+        if(!this.bookies.containsKey(bookie)) return;
+        Bookie b = this.bookies.get(bookie);
+        b.interested(k);
     }
     
     public void printApostasEventos(){
@@ -64,9 +79,17 @@ public class Facade implements BusinessPresentation {
     
 
     @Override
-    public void AbrirEvento(Odd odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
-        Evento e = new Evento(odd,eq1,eq2, inicio,  fim,  key);
+    public void AbrirEvento(Odd odd, String eq1, String eq2,
+            int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key,Bookie b) {
+        Evento e = new Evento(odd,eq1,eq2, inicio,  fim,  key,b);
         this.eventos.put(key, e);
+        idCounter++;
+    }
+    public void AbrirEvento(Odd odd, String eq1, String eq2,
+            int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Bookie b) {
+        Evento e = new Evento(odd,eq1,eq2, inicio,  fim,  idCounter,b);
+        this.eventos.put(e.getKey(), e);
+        idCounter++;
     }
 
     @Override
@@ -76,7 +99,6 @@ public class Facade implements BusinessPresentation {
 
     @Override
     public void TerminarEvento(Integer cod, int eq1, int eq2) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         int result[] = {eq1,eq2};
         this.eventos.get(cod).terminarEvento(result);
     }
@@ -191,7 +213,9 @@ public class Facade implements BusinessPresentation {
     }
     
     
-    
+    public void alteraOdd(Integer key, Odd odd){
+        this.eventos.get(key).setOdd(odd);
+    }
     
     
     

@@ -35,7 +35,7 @@ public class ArqSWexerc {
          GregorianCalendar inicio, fim;
          inicio = new GregorianCalendar();
          fim = new GregorianCalendar();
-         Evento evento01 = new Evento(odd01,"Porto", "Benfica", inicio, fim, 123 );
+         Evento evento01 = new Evento(odd01,"Porto", "Benfica", inicio, fim, 123, bookie01 );
          
          
         Facade casaDeApostas =  new Facade();

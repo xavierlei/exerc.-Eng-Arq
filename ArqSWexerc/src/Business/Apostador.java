@@ -6,17 +6,21 @@
 package Business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
  *
  * @author Miguel
  */
-public class Apostador {
+public class Apostador implements Observer {
     private String nome;
     private double saldoBetCoins;
     private ArrayList<Evento> historicoEventos; 
     private ArrayList<Aposta> historicoApostas;
+    private HashMap<Integer,Notificacao> notificacoes;
     
 
     public Apostador(String nome, double saldoBetCoins) {
@@ -78,6 +82,14 @@ public class Apostador {
         }
         
         return str.toString();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        Evento e = (Evento)o;
+        Notificacao n = (Notificacao)arg;
+        this.notificacoes.put(e.getKey(), n);
+        System.out.println("apostador: "+n.toString());
     }
     
     

@@ -28,12 +28,22 @@ public class Evento extends Observable {
     private GregorianCalendar inicio;
     private GregorianCalendar fim;
     private HashMap<Apostador,ArrayList<Aposta>> listaApostas;
+    private Bookie dono;
     
 
-    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("id: "+this.key+"\n");
+        sb.append(this.eq1+":"+this.resultado[0] +" vs " + this.eq2+":"+this.resultado[1] +"\n");
+        sb.append(this.oddAtual.toString()+"\n");
+        sb.append("estado: "+this.aberto+"\n");
+        sb.append(this.inicio.toString()+"\n");
+        sb.append(this.fim.toString()+"\n");
+        return sb.toString();
+    }
     
     public Evento(Odd odd, String eq1, String eq2, 
-            GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
+            GregorianCalendar inicio, GregorianCalendar fim, Integer key, Bookie b) {
         
         //this.odd = new ArrayList<Float>();
         //    for(Float o: odd) this.odd.add(o);
@@ -46,6 +56,8 @@ public class Evento extends Observable {
         this.key = key;
         this.resultado = new int[3];
         this.listaApostas = new HashMap<Apostador,ArrayList<Aposta>>();
+        this.dono = b;
+        this.addObserver(b);
     }
     
     
@@ -86,7 +98,12 @@ public class Evento extends Observable {
     public void setOdd(Odd odd){
         //for(Float o: odd) this.odd.add(o);
         this.oddAtual = odd;
-        this.notifyAll();
+        String msg = "a odd do evento: "+this.getKey()+" foi alterada para "+odd.getOddEquipaCasa()+":"
+                     +odd.getOddEmpate()+":"+odd.getOddEquipaFora();
+        Notificacao n = new Notificacao(this.key, msg);
+        
+        this.setChanged();
+        this.notifyObservers(n);
     }
     public void setEquipa1(String eq1) {
         this.eq1 = eq1;
@@ -137,34 +154,45 @@ public class Evento extends Observable {
     
     
     public void terminarEvento(int result[]){
+        this.aberto = false;
         this.resultado = result;
         for(Apostador kApostador : this.listaApostas.keySet()){
+            double totBc=0;
             for(Aposta ap : listaApostas.get(kApostador)){
                 // As Três formas de Ganhar! uma Aposta
                 if(result[0] > result[1] && ap.getNomeDaEquipa().equals(eq1)){
                     double bc = ap.getValorApostado() * ap.getOdd().getOddEquipaCasa();
                     kApostador.adicionarBetcoins( bc );
                     ap.setResult(true);
+                    totBc+=bc;
                 }
                 else if(result[1]>result[0] && ap.getNomeDaEquipa().equals(eq2)){
                     double bc = ap.getValorApostado() * ap.getOdd().getOddEquipaFora();
                     kApostador.adicionarBetcoins( bc );
                     ap.setResult(true);
+                    totBc+=bc;
                 }
                 else if(result[0] == result[1] && ap.getNomeDaEquipa().equals("empate") ){
                     double bc = ap.getValorApostado() * ap.getOdd().getOddEmpate();
                     kApostador.adicionarBetcoins( bc );
                     ap.setResult(true);
+                    totBc+=bc;
                 }else{
-                    ap.setResult(false);
+                    ap.setResult(false);   
                 }
-                ap.setResult_is_set(true);
+                ap.setResult_is_set(true);        
+            }
+            if(totBc>0){
+                String msg = "ganhou "+totBc+" coins no evento "+ this.key;
+                Notificacao n = new Notificacao(key, msg);
+                kApostador.update(this, msg);
             }
         }
+        String msg = "o evento terminou com o resultado "+this.eq1+":"+this.resultado[0]
+                     +" vs "+this.eq2+":"+this.resultado[1];
+        Notificacao n = new Notificacao(this.key, msg);
         this.setChanged();
-        this.notifyObservers();
-        this.deleteObservers();
-        this.clearChanged();     
+        this.notifyObservers(n);     
     }
         
 }
