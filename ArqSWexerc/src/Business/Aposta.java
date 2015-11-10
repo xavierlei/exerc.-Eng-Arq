@@ -15,15 +15,30 @@ public class Aposta {
     
     private double valorApostado;
     private String nomeDaEquipa;
-    private ArrayList<Float> odd;
+    //private ArrayList<Float> odd;
+    private Odd oddMomento;
+    
+    private Boolean result_is_set;
+    private Boolean result; // false = perdeu || true = ganhou
+    
 
-    public Aposta(double valorApostado, String nomeDaEquipa, ArrayList<Float> odd) {
+    public Aposta(double valorApostado, String nomeDaEquipa) {
         this.valorApostado = valorApostado;
         this.nomeDaEquipa = nomeDaEquipa;
-        this.odd = new ArrayList<Float>();
-            for(Float o: odd) this.odd.add(o);
+        this.oddMomento = null;
+        this.result_is_set = false;
+        this.result = false;
+        //this.odd = new ArrayList<Float>();
+        //    for(Float o: odd) this.odd.add(o);
     }
 
+    //  Sets
+    public void setOddMomento(Odd oddMomento) {
+        this.oddMomento = oddMomento;
+    }
+
+    
+    
     //  Gets
     public double getValorApostado(){
         return this.valorApostado;
@@ -31,11 +46,29 @@ public class Aposta {
     public String getNomeDaEquipa(){
         return this.nomeDaEquipa;
     }
-    public ArrayList<Float> getOdd() {
-        return odd;
+    public Odd getOdd() {
+        return this.oddMomento;
     }
     
+    public Boolean resultIsSet(){ 
+        return this.result_is_set;
+    }
 
+    public Boolean getResult() {
+        return result;
+    }
+
+    
+    
+    //  Sets
+    public void setResult_is_set(Boolean result_is_set) {
+        this.result_is_set = result_is_set;
+    }
+
+    public void setResult(Boolean result) {
+        this.result = result;
+    }
+    
     
     
     

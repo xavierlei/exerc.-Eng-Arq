@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Scanner;
 
 /**
  *
@@ -45,10 +46,16 @@ public class Facade implements BusinessPresentation {
     
     public void printApostadores( Integer key ){
         for(Apostador a : this.eventos.get(key).getApostas().keySet()){
-            System.out.println(a.getNome());
+            System.out.println( a.getNome() );
         }
-        
     }
+    
+    public void printApostasEventos(){
+        for(Integer k : this.eventos.keySet()){
+            this.eventos.get(k).printApostas();
+        }
+    }
+    
     
     public void adicionarEvento( Evento e, Integer key ){
         this.eventos.put( key, e);
@@ -57,7 +64,7 @@ public class Facade implements BusinessPresentation {
     
 
     @Override
-    public void AbrirEvento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
+    public void AbrirEvento(Odd odd, String eq1, String eq2, int[] resultado, GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
         Evento e = new Evento(odd,eq1,eq2, inicio,  fim,  key);
         this.eventos.put(key, e);
     }
@@ -107,11 +114,12 @@ public class Facade implements BusinessPresentation {
     }
 
     @Override
-    public boolean fazerAposta(Integer cod, String apostador, String eq, float val) {
+    public boolean fazerAposta(Integer cod_evento, String apostador, String eq, float val) {
         
-        //mudar, o apostador é que faz a aposta
-        if(!eventos.get(cod).isOpen()) return false;
-        this.apostadores.get(apostador).realizarAposta(eventos.get(cod), val, eq);
+        //
+        if( !eventos.get(cod_evento).isOpen() ) return false;
+        
+        this.apostadores.get(apostador).realizarAposta(eventos.get(cod_evento), val, eq);
         return true;
     }
 
@@ -121,6 +129,71 @@ public class Facade implements BusinessPresentation {
         bookies.put(usr, bk);
     }
 
+    
+    
+    
+    public void subMenuApostador( Apostador apostador ){
+        
+        int aux, sair=0;
+        while(true){
+            
+            System.out.println("0 - sair para Menu Geral");
+            System.out.println("1 - Consultar Eventos "); //e faz aposta
+            System.out.println("2 - Consultar Saldo  ");
+            System.out.println("3 - Consultar Historico de Apostas  ");
+            System.out.print(">");
+            Scanner opt = new Scanner(System.in);
+            aux = opt.nextInt();
+            System.out.println("Opção escolhida: "+ aux);
+            
+            switch( aux ){
+                case 0 : 
+                    sair = 1;
+                    break;
+                case 1 : // Apostar em Evento
+                    int evento = consultarEventos( );
+                    this.fazerAposta( evento, apostador.getNome(), "Porto", 23 );//porto ganha
+                    break;                
+                case 2 : //consultar Saldo
+                    System.out.println( apostador.getNome() +" saldo: "+ apostador.getSaldo() );
+                    break;
+                case 3 :
+                    System.out.println( apostador.historicoDeApostasToString() );
+                    break;
+                default:
+                    break;
+            }
+           if(sair == 1){break;} 
+      }
+        
+    }
+    
+    
+    public int consultarEventos(){
+        int i;
+        ArrayList<Evento> eventosDisponiveis = this.ConsultarEventos();//sao keys
+        ArrayList<Integer> opts = new ArrayList<Integer>();
+        
+        for( i=0; i < eventosDisponiveis.size() ;i++ ){
+            System.out.println( "op: "+ i + " - " + eventosDisponiveis.get(i).getKey() );
+            opts.add(i, eventosDisponiveis.get(i).getKey());//guarda cod evento
+        }
+        
+        int aux ;
+            
+        System.out.print("escolha evento> ");
+        Scanner opt = new Scanner(System.in);
+        aux = opt.nextInt();
+        System.out.println("Cod do Evento escolhido: " + opts.get(aux));
+            
+        
+      return opts.get(aux);
+    }
+    
+    
+    
+    
+    
     
    
     

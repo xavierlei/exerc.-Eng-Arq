@@ -19,7 +19,8 @@ import java.util.Observable;
  */
 public class Evento extends Observable {
     private Integer key;
-    private ArrayList<Float> odd;
+    //private ArrayList<Float> odd;
+    private Odd oddAtual;
     private String eq1;
     private String eq2;
     private int resultado[];
@@ -31,11 +32,12 @@ public class Evento extends Observable {
 
     
     
-    public Evento(ArrayList<Float> odd, String eq1, String eq2, 
+    public Evento(Odd odd, String eq1, String eq2, 
             GregorianCalendar inicio, GregorianCalendar fim, Integer key) {
         
-        this.odd = new ArrayList<Float>();
-            for(Float o: odd) this.odd.add(o);
+        //this.odd = new ArrayList<Float>();
+        //    for(Float o: odd) this.odd.add(o);
+        this.oddAtual = odd;
         this.eq1 = eq1;
         this.eq2 = eq2;
         this.aberto = true;
@@ -47,13 +49,25 @@ public class Evento extends Observable {
     }
     
     
+    //apagar mais tarde
+    public void printApostas(){
+        for( Apostador ap : this.listaApostas.keySet() ){
+            for(Aposta a : this.listaApostas.get(ap)){
+                System.out.println( a.getValorApostado() +" na equipa "+ a.getNomeDaEquipa());
+            }
+        }
+    }
+    
+    
     
     
     
     //Gets
-    public Integer getKey(){return this.key;}
-    public ArrayList<Float> getOdd() {
-        return this.odd;
+    public Integer getKey(){
+        return this.key;
+    }
+    public Odd getOdd() {
+        return this.oddAtual;
     }
 
     public String getEq1() {
@@ -69,8 +83,9 @@ public class Evento extends Observable {
     
    
     //Sets
-    public void setOdd(ArrayList<Float> odd){
-        for(Float o: odd) this.odd.add(o);
+    public void setOdd(Odd odd){
+        //for(Float o: odd) this.odd.add(o);
+        this.oddAtual = odd;
         this.notifyAll();
     }
     public void setEquipa1(String eq1) {
@@ -95,20 +110,20 @@ public class Evento extends Observable {
     }
     
     //Registar Evento 
-    public Aposta apostarAqui( Apostador apostador, double valor, String equipa ){
+    public Aposta apostarAqui( Apostador apostador, Aposta novaAposta ){
         if(!this.isOpen()) return null;
-        if( equipa.equals(this.eq1) || equipa.equals(this.eq2) ){
-            Aposta novaBid = new Aposta( valor, equipa, this.odd );
+        if( novaAposta.getNomeDaEquipa().equals(this.eq1) || novaAposta.getNomeDaEquipa().equals(this.eq2) ){
+            novaAposta.setOddMomento( this.oddAtual );
             if(listaApostas.containsKey(apostador)){
-                listaApostas.get(apostador).add(novaBid);
+                listaApostas.get(apostador).add(novaAposta);
             }
             else{
                 ArrayList<Aposta> ap = new ArrayList<Aposta>();
-                ap.add(novaBid);
+                ap.add(novaAposta);
                 listaApostas.put(apostador, ap);
             }
             
-            return novaBid;
+            return novaAposta;
         }
             return null;
         
@@ -123,18 +138,27 @@ public class Evento extends Observable {
     
     public void terminarEvento(int result[]){
         this.resultado = result;
-        for(Apostador k : this.listaApostas.keySet()){
-            for(Aposta ap : listaApostas.get(k)){
-                boolean ganhou = false;
+        for(Apostador kApostador : this.listaApostas.keySet()){
+            for(Aposta ap : listaApostas.get(kApostador)){
+                // As Três formas de Ganhar! uma Aposta
                 if(result[0] > result[1] && ap.getNomeDaEquipa().equals(eq1)){
-                    double bc = ap.getValorApostado()*ap.getOdd().get(0);
-                    k.adicionarBetcoins(bc);
+                    double bc = ap.getValorApostado() * ap.getOdd().getOddEquipaCasa();
+                    kApostador.adicionarBetcoins( bc );
+                    ap.setResult(true);
                 }
-                    
                 else if(result[1]>result[0] && ap.getNomeDaEquipa().equals(eq2)){
-                    double bc = ap.getValorApostado()*ap.getOdd().get(3);
-                    k.adicionarBetcoins(bc);
-                }     
+                    double bc = ap.getValorApostado() * ap.getOdd().getOddEquipaFora();
+                    kApostador.adicionarBetcoins( bc );
+                    ap.setResult(true);
+                }
+                else if(result[0] == result[1] && ap.getNomeDaEquipa().equals("empate") ){
+                    double bc = ap.getValorApostado() * ap.getOdd().getOddEmpate();
+                    kApostador.adicionarBetcoins( bc );
+                    ap.setResult(true);
+                }else{
+                    ap.setResult(false);
+                }
+                ap.setResult_is_set(true);
             }
         }
         this.setChanged();

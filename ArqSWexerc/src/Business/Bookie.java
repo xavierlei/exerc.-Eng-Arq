@@ -50,7 +50,7 @@ public class Bookie implements Observer {
     public void setUsrName(String name){
         this.usrname = name;
     }
-    public void newEvent(ArrayList<Float> odd, String eq1, String eq2, int[] resultado,
+    public void newEvent(Odd odd, String eq1, String eq2, int[] resultado,
             GregorianCalendar inicio, GregorianCalendar fim, Integer key){
         Evento e = new Evento(odd,eq1,eq2,inicio,fim,key);
         this.eventos.put(key, e);

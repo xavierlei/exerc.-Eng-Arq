@@ -8,6 +8,7 @@ package Presentation;
 import Business.Apostador;
 import Business.Bookie;
 import Business.Evento;
+import Business.Odd;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -16,7 +17,7 @@ import java.util.GregorianCalendar;
  * @author xavier
  */
 public interface BusinessPresentation {
-    public void AbrirEvento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, 
+    public void AbrirEvento(Odd odd, String eq1, String eq2, int[] resultado, 
             GregorianCalendar inicio, GregorianCalendar fim, Integer key);
     public void FecharEvento(String cod);
     public void TerminarEvento(Integer cod, int eq1, int eq2);
@@ -30,6 +31,9 @@ public interface BusinessPresentation {
     public void adicionarApostador( Apostador a );
     public void adicionarBookie(String usr);
     
+    //apagar mais tarde
+    public void printApostasEventos();
+    public void subMenuApostador( Apostador apostador );
     
     
     

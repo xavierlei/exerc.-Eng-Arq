@@ -15,24 +15,31 @@ import java.util.ArrayList;
 public class Apostador {
     private String nome;
     private double saldoBetCoins;
-    private ArrayList<Evento> historicoEventos;
+    private ArrayList<Evento> historicoEventos; 
+    private ArrayList<Aposta> historicoApostas;
+    
 
     public Apostador(String nome, double saldoBetCoins) {
         this.nome = nome;
         this.saldoBetCoins = saldoBetCoins;
         this.historicoEventos = new ArrayList<Evento>();
+        this.historicoApostas = new ArrayList<Aposta>();
     }
 
     public String getNome() {
         return nome;
     }
+    public double getSaldo(){
+        return this.saldoBetCoins;
+    }
+    public ArrayList<Evento> getHistorico(){
+        return this.historicoEventos;
+    }
     
-    public ArrayList<Evento> getHistorico(){return this.historicoEventos;}
+  
     
     
-    
-    
-    public void adicionarBetcoins( double bc ){//coiso
+    public void adicionarBetcoins( double bc ){
         if( bc >= 0 ){
             this.saldoBetCoins += bc;
         }
@@ -42,12 +49,36 @@ public class Apostador {
         
         if(valor < this.saldoBetCoins){
             this.historicoEventos.add( event );
-            event.apostarAqui(this, valor, equipa);
+            Aposta novaAposta = new Aposta( valor, equipa ); // Nova Aposta !!! ainda sem odd
+            this.historicoApostas.add(novaAposta); // vai pró historico
+            event.apostarAqui(this, novaAposta);// o Set da odd é feito aqui dentro - isto retorna Aposta ou null para quê?
+            this.saldoBetCoins -= valor;
         }
         
     }
     
-    
+    public String historicoDeApostasToString(){
+        StringBuilder str = new StringBuilder();
+        for( Aposta a : this.historicoApostas ){
+            str.append( "Equipa: " );
+            str.append( a.getNomeDaEquipa() );
+            str.append( "; valor apostado: " );
+            str.append( a.getValorApostado() );
+            str.append("BetCoins!");
+            if( a.resultIsSet() ){
+                if( a.getResult() ){
+                    str.append(" \t GANHOU! ");
+                }else{
+                    str.append(" \t PERDEU T_T ");
+                }
+            }else{
+                str.append(" \t *Pendente* ");
+            }
+            str.append("\n");
+        }
+        
+        return str.toString();
+    }
     
     
     

@@ -9,6 +9,7 @@ import Business.Apostador;
 import Business.Bookie;
 import Business.Evento;
 import Business.Facade;
+import Business.Odd;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -27,12 +28,10 @@ public class ArqSWexerc {
         
          Bookie bookie01 = new Bookie("António");
          Apostador apostador01 = new Apostador("Maria", 200 );
+         Apostador apostador02 = new Apostador("Manuel", 200 );
          
-         ArrayList<Float> odd01 = new ArrayList<Float>();
-         float a=(float) 0.8,b=(float) 1.2,c=(float) 0.9;
-         odd01.add(a);
-         odd01.add(b);
-         odd01.add(c);
+         
+         Odd odd01 = new Odd( 0.3,0.3,0.3 );
          GregorianCalendar inicio, fim;
          inicio = new GregorianCalendar();
          fim = new GregorianCalendar();
@@ -41,6 +40,7 @@ public class ArqSWexerc {
          
         Facade casaDeApostas =  new Facade();
         casaDeApostas.adicionarApostador(apostador01);
+        casaDeApostas.adicionarApostador(apostador02);
         casaDeApostas.adicionarBookie("António");
         casaDeApostas.adicionarEvento( evento01, 123 );
         
@@ -67,16 +67,17 @@ public class ArqSWexerc {
                     casaDeApostas.adicionarEvento(evento01, 123);
                     break;
                 case 2 :// realizar aposta
-                    casaDeApostas.fazerAposta( 123, "Maria", "Porto", 23 );
+                    casaDeApostas.subMenuApostador( apostador01 );
                     break;
                 case 3 : // imprimir apostadores do evento
                     casaDeApostas.printApostadores( 123 );
+                    casaDeApostas.printApostasEventos();
                     break;
                 case 4 :
                     casaDeApostas.getEvento( 123 ).addInteressado(bookie01);
                     break;
                 case 5 : //fechar evento
-                    casaDeApostas.TerminarEvento( 123, 2, 2);
+                    casaDeApostas.TerminarEvento( 123, 3, 2); //Porto ganha
                     break;
                 default:
                     break;
@@ -86,11 +87,7 @@ public class ArqSWexerc {
            if(sair==1){break;} 
       }
         
-        
-        
-        
     }
-    
     
     
     
