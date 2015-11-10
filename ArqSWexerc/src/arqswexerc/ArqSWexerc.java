@@ -24,22 +24,8 @@ public class ArqSWexerc {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        /*
-        public void AbrirEvento(ArrayList<Float> odd, String eq1, String eq2, int[] resultado, 
-                GregorianCalendar inicio, GregorianCalendar fim, Integer key);
-        public void FecharEvento(String cod);
-        public void TerminarEvento(String cod, int eq1, int eq2);
-        public void AddFundo(float val);
-        public boolean RetirarFundo(float val);
-        public float ConsltarFundo();
-        public boolean ComprarCoins(String apostador, float val);
-        public void newBookie(String usr);
-
-        public ArrayList<Evento> ConsultarEventos();
-        public boolean fazerAposta(Integer cod,String apostador, String eq, float val);
-        */
-        // Bookie bookie01 = new Bookie("António");
+        
+         Bookie bookie01 = new Bookie("António");
          Apostador apostador01 = new Apostador("Maria", 200 );
          
          ArrayList<Float> odd01 = new ArrayList<Float>();
@@ -63,10 +49,11 @@ public class ArqSWexerc {
         while(true){
             
             System.out.println("0 - sair");
-            System.out.println("1 - adicionar evento ");
+            System.out.println("1 - adicionar evento key=123 ");
             System.out.println("2 - apostar ");
             System.out.println("3 - print Apostas ");
-            System.out.println("Escolha um número entre 0-9");
+            System.out.println("4 - Mostrar interece no evento key=123 ");
+            System.out.println("5 - terminar Evento ");
             System.out.print(">");
             Scanner opt = new Scanner(System.in);
             aux = opt.nextInt();
@@ -85,7 +72,10 @@ public class ArqSWexerc {
                 case 3 : // imprimir apostadores do evento
                     casaDeApostas.printApostadores( 123 );
                     break;
-                case 4 : //fechar evento
+                case 4 :
+                    casaDeApostas.getEvento( 123 ).addInteressado(bookie01);
+                    break;
+                case 5 : //fechar evento
                     casaDeApostas.TerminarEvento( 123, 2, 2);
                     break;
                 default:

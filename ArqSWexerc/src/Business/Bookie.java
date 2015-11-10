@@ -22,6 +22,14 @@ public class Bookie implements Observer {
     private HashMap<Integer, Evento> notificacoes;
     
     
+    public Bookie(String usr){
+        this.usrname = usr;
+        this.eventos = new HashMap<Integer,Evento>();
+        this.interesses = new HashMap<Integer,Evento>();
+        this.notificacoes = new HashMap<Integer,Evento>();
+    }
+    
+    
     public Bookie(String usr, HashMap<Integer, Evento> eventos){
         this.usrname = usr;
         this.eventos = eventos;

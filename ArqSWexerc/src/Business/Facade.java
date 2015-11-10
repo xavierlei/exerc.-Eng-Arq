@@ -31,6 +31,11 @@ public class Facade implements BusinessPresentation {
     
     
     
+    
+    public Evento getEvento( int key ){
+        return this.eventos.get(key);
+    }
+    
     public void adicionarApostador( Apostador a ){
         this.apostadores.put(a.getNome(), a);
     }
