@@ -6,7 +6,9 @@
 package arqswexerc;
 
 import Business.Facade;
+import Presentation.ApostadorUI;
 import Presentation.BookieUI;
+import Presentation.GenericUI;
 
 /**
  *
@@ -15,9 +17,14 @@ import Presentation.BookieUI;
 public class Teste {
     public static void main(String[] args) throws InterruptedException{
         Facade f = new Facade();
+        
+        GenericUI gui = new GenericUI(f);
+        gui.run();
+        /*
         BookieUI BUI = new BookieUI(f);
-        BUI.start();
-        BUI.join();
+        ApostadorUI AUI = new ApostadorUI(f);
+        AUI.run();
+        BUI.join();*/
     }
     
 }

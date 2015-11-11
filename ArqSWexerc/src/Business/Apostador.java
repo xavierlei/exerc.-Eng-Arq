@@ -28,6 +28,7 @@ public class Apostador implements Observer {
         this.saldoBetCoins = saldoBetCoins;
         this.historicoEventos = new ArrayList<Evento>();
         this.historicoApostas = new ArrayList<Aposta>();
+        this.notificacoes = new HashMap<Integer,Notificacao>();
     }
 
     public String getNome() {
@@ -40,7 +41,9 @@ public class Apostador implements Observer {
         return this.historicoEventos;
     }
     
-  
+  public HashMap<Integer,Notificacao> getNotificacoes(){
+      return this.notificacoes;
+  }
     
     
     public void adicionarBetcoins( double bc ){
@@ -89,7 +92,7 @@ public class Apostador implements Observer {
         Evento e = (Evento)o;
         Notificacao n = (Notificacao)arg;
         this.notificacoes.put(e.getKey(), n);
-        System.out.println("apostador: "+n.toString());
+        System.out.println("apostador recebeu uma notificação");
     }
     
     

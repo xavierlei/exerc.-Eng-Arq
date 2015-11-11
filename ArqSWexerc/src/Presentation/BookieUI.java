@@ -19,15 +19,16 @@ import java.util.Scanner;
  *
  * @author xavier
  */
-public class BookieUI extends Thread {
+public class BookieUI {
     
     private Facade facade;
     private Bookie usr;
     
-    public BookieUI(Facade f){
+    public BookieUI(Facade f, Bookie b){
         this.facade = f;
         System.out.println("criou o cenas");
-        this.usr = this.facade.bookieRegister("Xavier");
+        //this.usr = this.facade.bookieRegister("Xavier");
+        this.usr = b;
     }
     
     private void switchNewEvent(String[] s){
@@ -53,6 +54,7 @@ public class BookieUI extends Thread {
     public void run(){
         boolean b = true;
         Scanner input = new Scanner(System.in);
+        System.out.println("BOOKIE USER INTERFACE");
         System.out.println("print 'man' for help ");
         System.out.print(">");
         String cmd = input.nextLine();
@@ -110,6 +112,7 @@ public class BookieUI extends Thread {
             
             
           if(b){
+              System.out.println("BOOKIE USER INTERFACE");
               System.out.println("print 'man' for help ");
               System.out.print(">");
               cmd = input.nextLine(); 

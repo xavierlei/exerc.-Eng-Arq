@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
@@ -182,11 +183,13 @@ public class Evento extends Observable {
                 }
                 ap.setResult_is_set(true);        
             }
-            if(totBc>0){
+                //this.setChanged();
                 String msg = "ganhou "+totBc+" coins no evento "+ this.key;
                 Notificacao n = new Notificacao(key, msg);
-                kApostador.update(this, msg);
-            }
+                System.out.println("antes de notify");
+                kApostador.update(this, n);
+               System.out.println("depois de notify");
+               // this.clearChanged();
         }
         String msg = "o evento terminou com o resultado "+this.eq1+":"+this.resultado[0]
                      +" vs "+this.eq2+":"+this.resultado[1];
