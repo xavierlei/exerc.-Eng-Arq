@@ -32,7 +32,7 @@ public class BookieUI {
     
     private void switchNewEvent(String[] s){
         int [] res = {0,0};
-        Odd o = new Odd(new Integer(s[3]),new Integer(s[4]),new Integer(s[5]));
+        Odd o = new Odd(new Double(s[3]),new Double(s[4]),new Double(s[5]));
         GregorianCalendar inicio = new GregorianCalendar();
         GregorianCalendar fim = new GregorianCalendar();
         inicio.set(new Integer(s[6]),new Integer(s[7])-1, new Integer(s[8]));
