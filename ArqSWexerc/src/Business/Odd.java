@@ -38,7 +38,10 @@ public class Odd {
     }
     
     
-    
+    public String toString(){
+        String s = this.equipaCasa+":"+this.empate+":"+this.equipaFora;
+        return s;
+    }
     
     
     

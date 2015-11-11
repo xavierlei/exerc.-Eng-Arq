@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
  */
 public interface BusinessPresentation {
     public void AbrirEvento(Odd odd, String eq1, String eq2, int[] resultado, 
-            GregorianCalendar inicio, GregorianCalendar fim, Integer key);
+            GregorianCalendar inicio, GregorianCalendar fim, Integer key,Bookie b);
     public void FecharEvento(String cod);
     public void TerminarEvento(Integer cod, int eq1, int eq2);
     public void AddFundo(float val);
