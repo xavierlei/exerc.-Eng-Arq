@@ -6,6 +6,9 @@
 package Business;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,6 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import static jdk.nashorn.internal.parser.DateParser.DAY;
 
 /**
  *
@@ -34,12 +38,18 @@ public class Evento extends Observable {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
+        int year = inicio.get(Calendar.YEAR);
+        int month = inicio.get(Calendar.MONTH)+1;
+        int day = inicio.get(Calendar.DAY_OF_MONTH);
+        int fyear = fim.get(Calendar.YEAR);
+        int fmonth = fim.get(Calendar.MONTH)+1;
+        int fday = fim.get(Calendar.DAY_OF_MONTH);
         sb.append("id: "+this.key+"\n");
         sb.append(this.eq1+":"+this.resultado[0] +" vs " + this.eq2+":"+this.resultado[1] +"\n");
         sb.append(this.oddAtual.toString()+"\n");
         sb.append("estado: "+this.aberto+"\n");
-        sb.append(this.inicio.toString()+"\n");
-        sb.append(this.fim.toString()+"\n");
+        sb.append("inicio: "+year+"/"+month+"/"+day+"\n");
+        sb.append("fim: "+fyear+"/"+fmonth+"/"+fday+"\n");
         return sb.toString();
     }
     

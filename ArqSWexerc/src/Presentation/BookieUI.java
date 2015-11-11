@@ -26,7 +26,6 @@ public class BookieUI {
     
     public BookieUI(Facade f, Bookie b){
         this.facade = f;
-        System.out.println("criou o cenas");
         //this.usr = this.facade.bookieRegister("Xavier");
         this.usr = b;
     }
@@ -36,8 +35,8 @@ public class BookieUI {
         Odd o = new Odd(new Integer(s[3]),new Integer(s[4]),new Integer(s[5]));
         GregorianCalendar inicio = new GregorianCalendar();
         GregorianCalendar fim = new GregorianCalendar();
-        inicio.set(new Integer(s[6]),new Integer(s[7]), new Integer(s[8]));
-        fim.set(new Integer(s[9]),new Integer(s[10]), new Integer(s[11]));
+        inicio.set(new Integer(s[6]),new Integer(s[7])-1, new Integer(s[8]));
+        fim.set(new Integer(s[9]),new Integer(s[10])-1, new Integer(s[11]));
         facade.AbrirEvento(o,s[1],s[2],res,inicio,fim,usr);
     }
     private void switchCloseEvent(String[] s){
