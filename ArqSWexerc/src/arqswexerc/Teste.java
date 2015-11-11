@@ -17,6 +17,8 @@ import Presentation.GenericUI;
 public class Teste {
     public static void main(String[] args) throws InterruptedException{
         Facade f = new Facade();
+        Povoa p = new Povoa(f);
+        p.povoamento();
         
         GenericUI gui = new GenericUI(f);
         gui.run();

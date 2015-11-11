@@ -40,9 +40,15 @@ public class Facade implements BusinessPresentation {
         }
         return null;    
     }
+    public Apostador apostadorRegister(String usr, double saldo){
+        Apostador ap = new Apostador(usr, saldo);
+        return ap;
+    }
+    public int getIdCounter(){return this.idCounter;}
     public Evento getEvento( int key ){
         return this.eventos.get(key);
     }
+    public Bookie getBookie(String usr){ return this.bookies.get(usr);}
     public HashMap<Integer,Notificacao> getNotificacoes(String bookie){
         return this.bookies.get(bookie).getNotificacoes();
     }
