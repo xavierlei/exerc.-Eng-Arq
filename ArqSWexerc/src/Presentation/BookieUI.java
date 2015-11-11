@@ -76,7 +76,7 @@ public class BookieUI {
                   
               case "interest":
                   Integer evento = new Integer(tokens[1]);
-                  System.out.println("o num é: "+evento);
+                  //System.out.println("o num é: "+evento);
                   this.facade.interested(usr.getUsrName(), evento);
                   break;
                   

@@ -201,7 +201,7 @@ public class Evento extends Observable {
                System.out.println("depois de notify");
                // this.clearChanged();
         }
-        String msg = "o evento terminou com o resultado "+this.eq1+":"+this.resultado[0]
+        String msg = "o evento terminou com o resultado :: "+this.eq1+":"+this.resultado[0]
                      +" vs "+this.eq2+":"+this.resultado[1];
         Notificacao n = new Notificacao(this.key, msg);
         this.setChanged();

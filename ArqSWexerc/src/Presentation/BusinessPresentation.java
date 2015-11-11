@@ -32,8 +32,8 @@ public interface BusinessPresentation {
     public void adicionarBookie(String usr);
     
     //apagar mais tarde
-    public void printApostasEventos();
-    public void subMenuApostador( Apostador apostador );
+    //public void printApostasEventos();
+    //public void subMenuApostador( Apostador apostador );
     
     
     

@@ -55,10 +55,12 @@ public class Bookie implements Observer {
         Evento e = new Evento(odd,eq1,eq2,inicio,fim,key,this);
         this.eventos.put(key, e);
     }
-    public void interested(Integer k){
-        if(!eventos.containsKey(k)) return;
-        this.interesses.put(k, this.eventos.get(k));
-        this.eventos.get(k).addInteressado(this);
+    public void interested(Integer k, Evento e){
+        //if(!eventos.containsKey(k)) return;
+        //this.interesses.put(k, this.eventos.get(k));
+        //this.eventos.get(k).addInteressado(this);
+        this.interesses.put(k, e);
+        e.addInteressado(this);
     }
     public void closeEvent(Integer key, int result[]){
         this.eventos.get(key).terminarEvento(result);

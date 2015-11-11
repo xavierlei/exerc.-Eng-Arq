@@ -50,9 +50,9 @@ public class ApostadorUI {
                     }
                     break;
                 case "history":
-                    System.out.println("printa 1");
+                    //System.out.println("printa 1");
                     for(Evento e : apostador.getHistorico()){
-                        System.out.println("printa 2");
+                        //System.out.println("printa 2");
                         System.out.println(e.toString());
                     }
                     break;
@@ -61,11 +61,11 @@ public class ApostadorUI {
                             tokens[2], new Float(tokens[3]));
                     break;
                 case "notifications":
-                    System.out.println("printa 1");
+                    //System.out.println("printa 1");
                     for(Notificacao n: this.apostador.getNotificacoes().values()){
-                        System.out.println("printa 2");
+                        //System.out.println("printa 2");
                         System.out.println(n.toString());
-                        System.out.println("printa 3");
+                        //System.out.println("printa 3");
                     }
                     break;
                 case "exit":

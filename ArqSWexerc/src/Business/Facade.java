@@ -49,6 +49,7 @@ public class Facade implements BusinessPresentation {
         return this.eventos.get(key);
     }
     public Bookie getBookie(String usr){ return this.bookies.get(usr);}
+    
     public HashMap<Integer,Notificacao> getNotificacoes(String bookie){
         return this.bookies.get(bookie).getNotificacoes();
     }
@@ -68,15 +69,15 @@ public class Facade implements BusinessPresentation {
     public void interested(String bookie,Integer k){
         if(!this.bookies.containsKey(bookie)) return;
         Bookie b = this.bookies.get(bookie);
-        b.interested(k);
+        b.interested( k, this.eventos.get(k) );
     }
-    
+    /*
     public void printApostasEventos(){
         for(Integer k : this.eventos.keySet()){
             this.eventos.get(k).printApostas();
         }
     }
-    
+    */
     
     public void adicionarEvento( Evento e, Integer key ){
         this.eventos.put( key, e);
@@ -157,9 +158,12 @@ public class Facade implements BusinessPresentation {
         bookies.put(usr, bk);
     }
 
+    public void alteraOdd(Integer key, Odd odd){
+        this.eventos.get(key).setOdd(odd);
+    }
     
     
-    
+    /*
     public void subMenuApostador( Apostador apostador ){
         
         int aux, sair=0;
@@ -197,6 +201,7 @@ public class Facade implements BusinessPresentation {
     }
     
     
+    
     public int consultarEventos(){
         int i;
         ArrayList<Evento> eventosDisponiveis = this.ConsultarEventos();//sao keys
@@ -217,11 +222,8 @@ public class Facade implements BusinessPresentation {
         
       return opts.get(aux);
     }
+    */
     
-    
-    public void alteraOdd(Integer key, Odd odd){
-        this.eventos.get(key).setOdd(odd);
-    }
     
     
     

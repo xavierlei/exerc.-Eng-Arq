@@ -18,7 +18,7 @@ public class Teste {
     public static void main(String[] args) throws InterruptedException{
         Facade f = new Facade();
         Povoa p = new Povoa(f);
-        p.povoamento();
+        p.povoamento(); //bota por o povo a apostar
         
         GenericUI gui = new GenericUI(f);
         gui.run();
@@ -26,7 +26,8 @@ public class Teste {
         BookieUI BUI = new BookieUI(f);
         ApostadorUI AUI = new ApostadorUI(f);
         AUI.run();
-        BUI.join();*/
+        BUI.join();
+        */
     }
     
 }
