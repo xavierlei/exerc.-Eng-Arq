@@ -103,7 +103,7 @@ public class Evento extends Observable {
     public HashMap<Apostador,ArrayList<Aposta>> getApostas(){
         return this.listaApostas;
     }
-    
+    public Bookie getBookie(){return this.dono;}
    
     //Sets
     public void setOdd(Odd odd){
