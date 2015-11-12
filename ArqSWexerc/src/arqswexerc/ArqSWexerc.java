@@ -26,7 +26,7 @@ public class ArqSWexerc {
      */
     public static void main(String[] args) {
         
-         Bookie bookie01 = new Bookie("António");
+   /*      Bookie bookie01 = new Bookie("António");
          Apostador apostador01 = new Apostador("Maria", 200 );
          Apostador apostador02 = new Apostador("Manuel", 200 );
          
@@ -86,7 +86,7 @@ public class ArqSWexerc {
             
            if(sair==1){break;} 
       }
-        
+        */
     }
     
     

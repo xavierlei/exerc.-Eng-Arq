@@ -8,10 +8,17 @@ package Presentation;
 import Business.Bookie;
 import Business.Evento;
 import Business.Facade;
+import Business.FilterPattern.Aberto;
+import Business.FilterPattern.And;
+import Business.FilterPattern.Criteria;
+import Business.FilterPattern.Dono;
+import Business.FilterPattern.Fechado;
+import Business.FilterPattern.Or;
 import Business.Notificacao;
 import Business.Odd;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -43,8 +50,79 @@ public class BookieUI {
         facade.TerminarEvento(new Integer(s[1]), new Integer(s[2]), new Integer(s[3]));
     }
     private void switchList(String[] s){
-        for(Evento e : facade.ConsultarEventos()){
+        /*for(Evento e : facade.ConsultarEventos()){
             System.out.println(e.toString());
+        }*/
+        Criteria c1;
+        Criteria c2;
+        Criteria op;
+        boolean got_answer = true;
+        if(s.length == 2){
+            switch(s[1]){
+                case "open":
+                    c1 = new Aberto();
+                    break;
+                case "closed":
+                    c1 = new Fechado();
+                    break;
+                default:
+                    c1 = new Dono(s[1]);
+                    break;
+            }
+            ArrayList<Evento> query = c1.meetCriteria(this.facade.ConsultarEventos());
+            for(Evento e : query)
+                    System.out.println(e.toString());
+        }
+        else if(s.length>2){
+            switch(s[1]){
+                case "open":
+                    c1 = new Aberto();
+                    break;
+                case "closed":
+                    c1 = new Fechado();
+                    break;
+                default:
+                    c1 = new Dono(s[1]);
+                    break;
+            }
+
+            switch(s[3]){
+                case "open":
+                    c2 = new Aberto();
+                    break;
+                case "closed":
+                    c2 = new Fechado();
+                    break;
+                default:
+                    c2 = new Dono(s[3]);
+                    break;
+            }
+
+            switch(s[2]){
+                case "and":
+                    op = new And(c1,c2);
+                    break;
+                case "or":
+                    op = new Or(c1,c2);
+                    break;
+                default:
+                    System.out.println("ERROR: INVALID SYNTAX");
+                    got_answer = false;
+                    op = new Or(c1,c2);
+                    break;
+            }
+            if(got_answer){
+                ArrayList<Evento> query = op.meetCriteria(this.facade.ConsultarEventos());
+                for(Evento e : query)
+                    System.out.println(e.toString());
+                if(query.isEmpty())
+                    System.out.println("QUERY FOUND NO RESULT");
+            }
+            else{System.out.println("QUERY FOUND NO RESULT");}       
+        }
+        else{
+            for(Evento e : this.facade.ConsultarEventos())
+                System.out.println(e.toString());
         }
     }
 
@@ -84,7 +162,7 @@ public class BookieUI {
                   System.out.println("  newEvent eq1 eq2 odd odd odd inicio fim");
                   System.out.println("  changeOdd key odd odd odd");
                   System.out.println("  endEvent key resultEq1 resultEq2");
-                  System.out.println("  list arg");
+                  System.out.println("  list [open|closed|bookie_name] [and|or] [open|closed|bookie_name]");
                   System.out.println("  interest key");
                   System.out.println("  notifications");
                   System.out.println("  exit");

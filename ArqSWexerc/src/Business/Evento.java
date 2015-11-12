@@ -45,6 +45,7 @@ public class Evento extends Observable {
         int fmonth = fim.get(Calendar.MONTH)+1;
         int fday = fim.get(Calendar.DAY_OF_MONTH);
         sb.append("id: "+this.key+"\n");
+        sb.append("dono: "+this.dono.getUsrName()+"\n");
         sb.append(this.eq1+":"+this.resultado[0] +" vs " + this.eq2+":"+this.resultado[1] +"\n");
         sb.append(this.oddAtual.toString()+"\n");
         sb.append("estado: "+this.aberto+"\n");

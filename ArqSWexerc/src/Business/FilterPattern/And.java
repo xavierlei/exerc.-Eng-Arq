@@ -25,7 +25,8 @@ public class And implements Criteria{
     @Override
     public ArrayList<Evento> meetCriteria(ArrayList<Evento> eventos) {
         ArrayList<Evento> resCrit1 = crit1.meetCriteria(eventos);
-        return crit2.meetCriteria(eventos);
+        return crit2.meetCriteria(resCrit1);
     }
+    
     
 }
