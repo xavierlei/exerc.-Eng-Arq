@@ -28,5 +28,12 @@ public class Dono implements Criteria{
         }
         return res;
     }
+
+    @Override
+    public Criteria clone() {
+        return new Dono(this.dono);
+    }
+    
+
     
 }

@@ -25,5 +25,12 @@ public class Fechado implements Criteria{
         }
         return res;
     }
+
+    @Override
+    public Criteria clone() {
+        return new Fechado();
+    }
+    
+
     
 }

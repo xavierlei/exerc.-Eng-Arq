@@ -50,80 +50,62 @@ public class BookieUI {
         facade.TerminarEvento(new Integer(s[1]), new Integer(s[2]), new Integer(s[3]));
     }
     private void switchList(String[] s){
-        /*for(Evento e : facade.ConsultarEventos()){
-            System.out.println(e.toString());
-        }*/
-        Criteria c1;
-        Criteria c2;
-        Criteria op;
-        boolean got_answer = true;
-        if(s.length == 2){
-            switch(s[1]){
-                case "open":
-                    c1 = new Aberto();
-                    break;
-                case "closed":
-                    c1 = new Fechado();
-                    break;
-                default:
-                    c1 = new Dono(s[1]);
-                    break;
+        boolean good_syntax = true;
+        if(s.length == 1){
+            for (Evento e : this.facade.ConsultarEventos()){
+                System.out.println(e.toString());
             }
-            ArrayList<Evento> query = c1.meetCriteria(this.facade.ConsultarEventos());
-            for(Evento e : query)
-                    System.out.println(e.toString());
-        }
-        else if(s.length>2){
-            switch(s[1]){
-                case "open":
-                    c1 = new Aberto();
-                    break;
-                case "closed":
-                    c1 = new Fechado();
-                    break;
-                default:
-                    c1 = new Dono(s[1]);
-                    break;
-            }
-
-            switch(s[3]){
-                case "open":
-                    c2 = new Aberto();
-                    break;
-                case "closed":
-                    c2 = new Fechado();
-                    break;
-                default:
-                    c2 = new Dono(s[3]);
-                    break;
-            }
-
-            switch(s[2]){
-                case "and":
-                    op = new And(c1,c2);
-                    break;
-                case "or":
-                    op = new Or(c1,c2);
-                    break;
-                default:
-                    System.out.println("ERROR: INVALID SYNTAX");
-                    got_answer = false;
-                    op = new Or(c1,c2);
-                    break;
-            }
-            if(got_answer){
-                ArrayList<Evento> query = op.meetCriteria(this.facade.ConsultarEventos());
-                for(Evento e : query)
-                    System.out.println(e.toString());
-                if(query.isEmpty())
-                    System.out.println("QUERY FOUND NO RESULT");
-            }
-            else{System.out.println("QUERY FOUND NO RESULT");}       
         }
         else{
-            for(Evento e : this.facade.ConsultarEventos())
-                System.out.println(e.toString());
+            Criteria c0; 
+            switch(s[1]){
+                    case "open":
+                        c0 = new Aberto();
+                        break;
+                    case "closed":
+                        c0 = new Fechado();
+                        break;
+                    default:
+                        c0 = new Dono(s[1]);
+                        break;
+                } 
+            for(int i = 2; i < s.length-1; i+=2){
+                Criteria t;
+                Criteria arg;
+                switch(s[i+1]){
+                    case "open":
+                        arg = new Aberto();
+                        break;
+                    case "closed":
+                        arg = new Fechado();
+                        break;
+                    default:
+                        arg = new Dono(s[i+1]);
+                        break;
+                } 
+                switch(s[i]){
+                    case "and":
+                        t = c0.clone();
+                        c0 = new And(t,arg);
+                        break;
+                    case "or":
+                        t = c0.clone();
+                        c0 = new Or(t,arg);
+                        break;
+                    default:
+                        good_syntax = false;
+                        break;
+                }
+            }
+            if(good_syntax){
+                for(Evento e : c0.meetCriteria(this.facade.ConsultarEventos()))
+                    System.out.println(e.toString());
+            }
+            else{
+                System.out.println("SYNTAX ERROR");
+            }
         }
+        
     }
 
     private boolean login(String usr){return true;}

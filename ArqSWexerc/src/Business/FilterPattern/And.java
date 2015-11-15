@@ -27,6 +27,12 @@ public class And implements Criteria{
         ArrayList<Evento> resCrit1 = crit1.meetCriteria(eventos);
         return crit2.meetCriteria(resCrit1);
     }
+
+    @Override
+    public Criteria clone() {
+        return new And(this.crit1.clone(),this.crit2.clone());
+    }
     
+   
     
 }

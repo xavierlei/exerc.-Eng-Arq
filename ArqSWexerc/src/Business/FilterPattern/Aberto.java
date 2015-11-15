@@ -24,5 +24,11 @@ public class Aberto implements Criteria{
         }
         return res;
     }
+
+    @Override
+    public Criteria clone() {
+        return new Aberto();
+    }
     
+
 }

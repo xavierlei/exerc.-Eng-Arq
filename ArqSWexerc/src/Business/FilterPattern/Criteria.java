@@ -14,4 +14,7 @@ import java.util.ArrayList;
  */
 public interface Criteria {
     public ArrayList<Evento> meetCriteria(ArrayList<Evento> evento);
+    public Criteria clone();
 }
+
+

@@ -32,5 +32,11 @@ public class Or implements Criteria{
                 res1.add(e);
         }
         return res1;
-    }   
+    }
+
+    @Override
+    public Criteria clone() {
+        return new Or(this.crit1.clone(),this.crit2.clone());
+    }
+    
 }
