@@ -25,7 +25,7 @@ public class Aposta {
     public Aposta(double valorApostado, String nomeDaEquipa) {
         this.valorApostado = valorApostado;
         this.nomeDaEquipa = nomeDaEquipa;
-        this.oddMomento = null;
+        this.oddMomento = new Odd(1,1,1);
         this.result_is_set = false;
         this.result = false;
         //this.odd = new ArrayList<Float>();

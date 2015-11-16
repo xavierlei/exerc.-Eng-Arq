@@ -20,7 +20,7 @@ public interface BusinessPresentation {
     public void AbrirEvento(Odd odd, String eq1, String eq2, int[] resultado, 
             GregorianCalendar inicio, GregorianCalendar fim, Integer key,Bookie b);
     public void FecharEvento(String cod);
-    public void TerminarEvento(Integer cod, int eq1, int eq2);
+    public boolean TerminarEvento(Integer cod, int eq1, int eq2,String bookie);
     public void AddFundo(float val);
     public boolean RetirarFundo(float val);
     public float ConsltarFundo();

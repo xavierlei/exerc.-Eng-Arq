@@ -8,6 +8,12 @@ package Presentation;
 import Business.Apostador;
 import Business.Evento;
 import Business.Facade;
+import Business.FilterPattern.Aberto;
+import Business.FilterPattern.And;
+import Business.FilterPattern.Criteria;
+import Business.FilterPattern.Dono;
+import Business.FilterPattern.Fechado;
+import Business.FilterPattern.Or;
 import Business.Notificacao;
 import java.util.Scanner;
 
@@ -31,7 +37,65 @@ public class ApostadorUI {
         this.facade.fazerAposta(new Integer(tokens[1]),
                 this.apostador.getNome(), tokens[2], new Float(tokens[3]));
     }
-    
+     private void switchList(String[] s){
+        boolean good_syntax = true;
+        if(s.length == 1){
+            for (Evento e : this.facade.ConsultarEventos()){
+                System.out.println(e.toString());
+            }
+        }
+        else{
+            Criteria c0; 
+            switch(s[1]){
+                    case "open":
+                        c0 = new Aberto();
+                        break;
+                    case "closed":
+                        c0 = new Fechado();
+                        break;
+                    default:
+                        c0 = new Dono(s[1]);
+                        break;
+                } 
+            for(int i = 2; i < s.length-1; i+=2){
+                Criteria t;
+                Criteria arg;
+                switch(s[i+1]){
+                    case "open":
+                        arg = new Aberto();
+                        break;
+                    case "closed":
+                        arg = new Fechado();
+                        break;
+                    default:
+                        arg = new Dono(s[i+1]);
+                        break;
+                } 
+                switch(s[i]){
+                    case "and":
+                        t = c0.clone();
+                        c0 = new And(t,arg);
+                        break;
+                    case "or":
+                        t = c0.clone();
+                        c0 = new Or(t,arg);
+                        break;
+                    default:
+                        good_syntax = false;
+                        break;
+                }
+            }
+            if(good_syntax){
+                for(Evento e : c0.meetCriteria(this.facade.ConsultarEventos()))
+                    System.out.println(e.toString());
+            }
+            else{
+                System.out.println("SYNTAX ERROR");
+            }
+        }
+        
+    }
+
     public void run(){
         
         boolean b = true;
@@ -45,9 +109,7 @@ public class ApostadorUI {
             String[] tokens = cmd.split(delims);
             switch(tokens[0]){
                 case "list":
-                    for(Evento e : this.facade.ConsultarEventos()){
-                        System.out.println(e.toString());
-                    }
+                    switchList(tokens);
                     break;
                 case "history":
                     //System.out.println("printa 1");
@@ -62,7 +124,7 @@ public class ApostadorUI {
                     break;
                 case "notifications":
                     //System.out.println("printa 1");
-                    for(Notificacao n: this.apostador.getNotificacoes().values()){
+                    for(Notificacao n: this.apostador.getNotificacoes()){
                         //System.out.println("printa 2");
                         System.out.println(n.toString());
                         //System.out.println("printa 3");
@@ -76,7 +138,11 @@ public class ApostadorUI {
                     System.out.println("bet key eq value");
                     System.out.println("notifications");
                     System.out.println("history");
+                    System.out.println("balance");
                     System.out.println("man");
+                    break;
+                case "balance":
+                    System.out.println("balance: "+this.apostador.getSaldo()+" BetCoins");
                     break;
                 default:
                     System.out.println("unknown command");

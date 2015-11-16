@@ -32,17 +32,27 @@ public class Facade implements BusinessPresentation {
     
     
     
-    public Bookie bookieRegister(String usr){
-        Bookie b = new Bookie(usr);
+    public Bookie bookieRegister(String usr,String passwd){
+        Bookie b = new Bookie(usr,passwd);
         if(!this.bookies.containsKey(b)){
             this.bookies.put(usr, b);
             return b;
         }
         return null;    
     }
-    public Apostador apostadorRegister(String usr, double saldo){
-        Apostador ap = new Apostador(usr, saldo);
+    public Bookie bookieLogIn(String usr, String passwd){
+        if(this.bookies.containsKey(usr) && this.bookies.get(usr).getPasswd().equals(passwd))
+            return this.bookies.get(usr);
+        else return null;
+    }
+    public Apostador apostadorRegister(String usr, String passwd,double saldo){
+        Apostador ap = new Apostador(usr, passwd,saldo);
         return ap;
+    }
+    public Apostador apostLogin(String usr, String passwd){
+        if(this.apostadores.containsKey(usr) && this.apostadores.get(usr).getPasswd().equals(passwd))
+            return this.apostadores.get(usr);
+        else return null;
     }
     public int getIdCounter(){return this.idCounter;}
     public Evento getEvento( int key ){
@@ -105,9 +115,15 @@ public class Facade implements BusinessPresentation {
     }
 
     @Override
-    public void TerminarEvento(Integer cod, int eq1, int eq2) {
-        int result[] = {eq1,eq2};
-        this.eventos.get(cod).terminarEvento(result);
+    public boolean TerminarEvento(Integer cod, int eq1, int eq2, String bookie) {
+        if(this.eventos.get(cod).getBookie().getUsrName().equals(bookie)){
+            int result[] = {eq1,eq2};
+            this.eventos.get(cod).terminarEvento(result);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override

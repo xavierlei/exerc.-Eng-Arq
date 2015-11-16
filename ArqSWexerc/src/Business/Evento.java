@@ -22,7 +22,7 @@ import static jdk.nashorn.internal.parser.DateParser.DAY;
  *
  * @author xavier
  */
-public class Evento extends Observable {
+public class Evento extends Subject {
     private Integer key;
     //private ArrayList<Float> odd;
     private Odd oddAtual;
@@ -69,7 +69,8 @@ public class Evento extends Observable {
         this.resultado = new int[3];
         this.listaApostas = new HashMap<Apostador,ArrayList<Aposta>>();
         this.dono = b;
-        this.addObserver(b);
+        this.addObserver("interessados",b);
+        this.addObserver("todos", b);
     }
     
     
@@ -114,8 +115,8 @@ public class Evento extends Observable {
                      +odd.getOddEmpate()+":"+odd.getOddEquipaFora();
         Notificacao n = new Notificacao(this.key, msg);
         
-        this.setChanged();
-        this.notifyObservers(n);
+        this.setChanged("todos");
+        this.notifyObservers("todos",n);
     }
     public void setEquipa1(String eq1) {
         this.eq1 = eq1;
@@ -135,13 +136,15 @@ public class Evento extends Observable {
     
     
     public void addInteressado(Bookie b){
-        this.addObserver(b);
+        this.addObserver("interessados",b);
+        this.addObserver("todos", b);
     }
     
     //Registar Evento 
     public Aposta apostarAqui( Apostador apostador, Aposta novaAposta ){
         if(!this.isOpen()) return null;
-        if( novaAposta.getNomeDaEquipa().equals(this.eq1) || novaAposta.getNomeDaEquipa().equals(this.eq2) ){
+        if( novaAposta.getNomeDaEquipa().equals(this.eq1) || novaAposta.getNomeDaEquipa().equals(this.eq2) 
+                || novaAposta.getNomeDaEquipa().equals("empate")){
             novaAposta.setOddMomento( this.oddAtual );
             if(listaApostas.containsKey(apostador)){
                 listaApostas.get(apostador).add(novaAposta);
@@ -150,6 +153,8 @@ public class Evento extends Observable {
                 ArrayList<Aposta> ap = new ArrayList<Aposta>();
                 ap.add(novaAposta);
                 listaApostas.put(apostador, ap);
+                addObserver("apostadores", apostador);
+                addObserver("todos", apostador);
             }
             
             return novaAposta;
@@ -168,25 +173,23 @@ public class Evento extends Observable {
     public void terminarEvento(int result[]){
         this.aberto = false;
         this.resultado = result;
+        double totalGanho = 0;
         for(Apostador kApostador : this.listaApostas.keySet()){
             double totBc=0;
             for(Aposta ap : listaApostas.get(kApostador)){
                 // As Três formas de Ganhar! uma Aposta
                 if(result[0] > result[1] && ap.getNomeDaEquipa().equals(eq1)){
                     double bc = ap.getValorApostado() * ap.getOdd().getOddEquipaCasa();
-                    kApostador.adicionarBetcoins( bc );
                     ap.setResult(true);
                     totBc+=bc;
                 }
                 else if(result[1]>result[0] && ap.getNomeDaEquipa().equals(eq2)){
                     double bc = ap.getValorApostado() * ap.getOdd().getOddEquipaFora();
-                    kApostador.adicionarBetcoins( bc );
                     ap.setResult(true);
                     totBc+=bc;
                 }
                 else if(result[0] == result[1] && ap.getNomeDaEquipa().equals("empate") ){
                     double bc = ap.getValorApostado() * ap.getOdd().getOddEmpate();
-                    kApostador.adicionarBetcoins( bc );
                     ap.setResult(true);
                     totBc+=bc;
                 }else{
@@ -194,19 +197,25 @@ public class Evento extends Observable {
                 }
                 ap.setResult_is_set(true);        
             }
-                //this.setChanged();
-                String msg = "ganhou "+totBc+" coins no evento "+ this.key;
-                Notificacao n = new Notificacao(key, msg);
-                System.out.println("antes de notify");
-                kApostador.update(this, n);
-               System.out.println("depois de notify");
-               // this.clearChanged();
+            kApostador.adicionarBetcoins( totBc );
+            String msg = "ganhou "+totBc+" coins no evento "+ this.key;
+            Notificacao n = new Notificacao(key, msg);
+            this.setChanged("apostadores");
+            notifyObserver("apostadores", kApostador, n);
+            totalGanho +=totBc;
         }
         String msg = "o evento terminou com o resultado :: "+this.eq1+":"+this.resultado[0]
                      +" vs "+this.eq2+":"+this.resultado[1];
         Notificacao n = new Notificacao(this.key, msg);
-        this.setChanged();
-        this.notifyObservers(n);     
+        this.setChanged("todos");
+        this.notifyObservers("todos",n);   
+        String msg2 ="valor total ganho no evento "+this.key+" = "+totalGanho+" coins";
+        Notificacao n2 = new Notificacao(this.key, msg2);
+        this.setChanged("interessados");
+        this.notifyObserver("interessados",this.dono ,n2);
+        this.deleteObservers("todos");
+        this.deleteObservers("apostadores");
+        this.deleteObservers("interessados");
     }
         
 }

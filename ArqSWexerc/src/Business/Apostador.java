@@ -15,25 +15,28 @@ import java.util.Observer;
  *
  * @author Miguel
  */
-public class Apostador implements Observer {
+public class Apostador implements MyObserver {
     private String nome;
+    private String passwd;
     private double saldoBetCoins;
     private ArrayList<Evento> historicoEventos; 
     private ArrayList<Aposta> historicoApostas;
-    private HashMap<Integer,Notificacao> notificacoes;
+    private ArrayList <Notificacao> notificacoes;
     
 
-    public Apostador(String nome, double saldoBetCoins) {
+    public Apostador(String nome, String passwd, double saldoBetCoins) {
         this.nome = nome;
         this.saldoBetCoins = saldoBetCoins;
         this.historicoEventos = new ArrayList<Evento>();
         this.historicoApostas = new ArrayList<Aposta>();
-        this.notificacoes = new HashMap<Integer,Notificacao>();
+        this.notificacoes = new ArrayList<Notificacao>();
+        this.passwd = passwd;
     }
 
     public String getNome() {
         return nome;
     }
+    public String getPasswd(){return this.passwd;}
     public double getSaldo(){
         return this.saldoBetCoins;
     }
@@ -41,7 +44,7 @@ public class Apostador implements Observer {
         return this.historicoEventos;
     }
     
-  public HashMap<Integer,Notificacao> getNotificacoes(){
+  public ArrayList<Notificacao> getNotificacoes(){
       return this.notificacoes;
   }
     
@@ -88,11 +91,11 @@ public class Apostador implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Subject o, Object arg) {
         Evento e = (Evento)o;
         Notificacao n = (Notificacao)arg;
-        this.notificacoes.put(e.getKey(), n);
-        System.out.println("apostador recebeu uma notificação");
+        this.notificacoes.add(n);
+        System.out.println("NOTIFICATION TO BETTER "+this.nome+": "+n.toString());
     }
     
     

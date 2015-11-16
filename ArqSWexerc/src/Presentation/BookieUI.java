@@ -47,7 +47,8 @@ public class BookieUI {
         facade.AbrirEvento(o,s[1],s[2],res,inicio,fim,usr);
     }
     private void switchCloseEvent(String[] s){
-        facade.TerminarEvento(new Integer(s[1]), new Integer(s[2]), new Integer(s[3]));
+        if(!facade.TerminarEvento(new Integer(s[1]), new Integer(s[2]), new Integer(s[3]),usr.getUsrName()))
+            System.out.println("PERMISSION DENIED: this event is not your property");
     }
     private void switchList(String[] s){
         boolean good_syntax = true;

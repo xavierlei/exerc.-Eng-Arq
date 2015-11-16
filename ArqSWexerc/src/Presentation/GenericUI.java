@@ -21,9 +21,9 @@ public class GenericUI {
     
     public GenericUI(Facade f){
         this.facade = f;
-        this.apostador = new Apostador("Xavier Apostador", 50000);
+        this.apostador = new Apostador("Xavier Apostador", "123",50000);
         f.adicionarApostador(apostador);
-        this.usr = this.facade.bookieRegister("Xavier Bookie");
+        this.usr = this.facade.bookieRegister("Xavier Bookie","123");
     }
     
     public void run(){

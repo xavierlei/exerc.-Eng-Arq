@@ -15,18 +15,20 @@ import java.util.Observer;
  *
  * @author xavier
  */
-public class Bookie implements Observer {
+public class Bookie implements MyObserver {
     private String usrname;
+    private String passwd;
     private HashMap<Integer, Evento> eventos;
     private HashMap<Integer, Evento> interesses;
     private HashMap<Integer, Notificacao> notificacoes;
     
     
-    public Bookie(String usr){
+    public Bookie(String usr,String passwd){
         this.usrname = usr;
         this.eventos = new HashMap<Integer,Evento>();
         this.interesses = new HashMap<Integer,Evento>();
         this.notificacoes = new HashMap<Integer,Notificacao>();
+        this.passwd = passwd;
     }
     
     
@@ -40,6 +42,9 @@ public class Bookie implements Observer {
     
     public String getUsrName(){
         return this.usrname;
+    }
+    public String getPasswd(){
+        return this.passwd;
     }
     public HashMap<Integer,Evento> getInterresses(){
         return this.interesses;
@@ -67,12 +72,12 @@ public class Bookie implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Subject o, Object arg) {
         Evento e = (Evento) o;
         Notificacao n = (Notificacao)arg;
         notificacoes.put(e.getKey(), n);
         //System.out.println("Bookie:"+this.usrname+"foi notificado pelo evento:"+ e.getEq1()+"Vs"+e.getEq2());
-        System.out.println("NOTIFICATION: "+n.toString());
+        System.out.println("NOTIFICATION TO BOOKIE "+this.usrname+" :"+n.toString());
     }
     
 }

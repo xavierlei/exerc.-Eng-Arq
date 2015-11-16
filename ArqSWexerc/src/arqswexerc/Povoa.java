@@ -23,16 +23,16 @@ public class Povoa {
     }
     
     public void povoamento(){
-        this.facade.bookieRegister("Zé_tone");
-        this.facade.bookieRegister("José_tone");
-        this.facade.bookieRegister("António_josé");
-        this.facade.bookieRegister("Tony_John");
-        this.facade.bookieRegister("John_Johnson");
+        this.facade.bookieRegister("Zé_tone","123");
+        this.facade.bookieRegister("José_tone","123");
+        this.facade.bookieRegister("António_josé","123");
+        this.facade.bookieRegister("Tony_John","123");
+        this.facade.bookieRegister("John_Johnson","123");
         
-        Apostador a1 = new Apostador("José_Silva",30000);
-        Apostador a2 = new Apostador("Paulo_Cardoso",4000);
-        Apostador a3 = new Apostador("Mário_Anónimo Silva",30000);
-        Apostador a4 = new Apostador("Pedro_Pessoa",500);
+        Apostador a1 = new Apostador("José_Silva","123",30000);
+        Apostador a2 = new Apostador("Paulo_Cardoso","123",4000);
+        Apostador a3 = new Apostador("Mário_Anónimo Silva","123",30000);
+        Apostador a4 = new Apostador("Pedro_Pessoa","123",500);
         this.facade.adicionarApostador(a1);
         this.facade.adicionarApostador(a2);
         this.facade.adicionarApostador(a3);
@@ -50,6 +50,9 @@ public class Povoa {
         facade.AbrirEvento(odd1, "viana", "barcelos",res1,inicio,fim, facade.getBookie("Tony_John"));
         facade.AbrirEvento(odd1, "cenas", "porto",res1,inicio,fim, facade.getBookie("John_Johnson"));
         facade.AbrirEvento(odd1, "braga", "cenas",res1,inicio,fim, facade.getBookie("John_Johnson"));
+        
+        facade.interested(a1.getNome(), 0);
+        facade.interested(a2.getNome(), 0);
         
         
         facade.fazerAposta(0, a1.getNome(), "braga", 750);
