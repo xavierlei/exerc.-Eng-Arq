@@ -29,16 +29,11 @@ public class Povoa {
         this.facade.bookieRegister("Tony_John","123");
         this.facade.bookieRegister("John_Johnson","123");
         
-        Apostador a1 = new Apostador("José_Silva","123",30000);
-        Apostador a2 = new Apostador("Paulo_Cardoso","123",4000);
-        Apostador a3 = new Apostador("Mário_Anónimo Silva","123",30000);
-        Apostador a4 = new Apostador("Pedro_Pessoa","123",500);
-        this.facade.adicionarApostador(a1);
-        this.facade.adicionarApostador(a2);
-        this.facade.adicionarApostador(a3);
-        this.facade.adicionarApostador(a4);
-        
-        
+        Apostador a1 = this.facade.apostadorRegister("José_Silva","123",30000);
+        Apostador a2 = this.facade.apostadorRegister("Paulo_Cardoso","123",4000);
+        Apostador a3 = this.facade.apostadorRegister("Mário_Anónimo","123",30000);
+        Apostador a4 = this.facade.apostadorRegister("Pedro_Pessoa","123",500);
+   
         Odd odd1 = new Odd(2,3,5);
         int [] res1 = {0,0};
         GregorianCalendar inicio, fim;

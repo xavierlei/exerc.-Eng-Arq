@@ -46,8 +46,12 @@ public class Facade implements BusinessPresentation {
         else return null;
     }
     public Apostador apostadorRegister(String usr, String passwd,double saldo){
-        Apostador ap = new Apostador(usr, passwd,saldo);
-        return ap;
+        if(!this.apostadores.containsKey(usr)){
+            Apostador ap = new Apostador(usr, passwd,saldo);
+            this.apostadores.put(usr, ap);
+            return ap;
+        }
+        return null;
     }
     public Apostador apostLogin(String usr, String passwd){
         if(this.apostadores.containsKey(usr) && this.apostadores.get(usr).getPasswd().equals(passwd))
@@ -81,14 +85,7 @@ public class Facade implements BusinessPresentation {
         Bookie b = this.bookies.get(bookie);
         b.interested( k, this.eventos.get(k) );
     }
-    /*
-    public void printApostasEventos(){
-        for(Integer k : this.eventos.keySet()){
-            this.eventos.get(k).printApostas();
-        }
-    }
-    */
-    
+ 
     public void adicionarEvento( Evento e, Integer key ){
         this.eventos.put( key, e);
     }
@@ -179,70 +176,5 @@ public class Facade implements BusinessPresentation {
     }
     
     
-    /*
-    public void subMenuApostador( Apostador apostador ){
-        
-        int aux, sair=0;
-        while(true){
-            
-            System.out.println("0 - sair para Menu Geral");
-            System.out.println("1 - Consultar Eventos "); //e faz aposta
-            System.out.println("2 - Consultar Saldo  ");
-            System.out.println("3 - Consultar Historico de Apostas  ");
-            System.out.print(">");
-            Scanner opt = new Scanner(System.in);
-            aux = opt.nextInt();
-            System.out.println("Opção escolhida: "+ aux);
-            
-            switch( aux ){
-                case 0 : 
-                    sair = 1;
-                    break;
-                case 1 : // Apostar em Evento
-                    int evento = consultarEventos( );
-                    this.fazerAposta( evento, apostador.getNome(), "Porto", 23 );//porto ganha
-                    break;                
-                case 2 : //consultar Saldo
-                    System.out.println( apostador.getNome() +" saldo: "+ apostador.getSaldo() );
-                    break;
-                case 3 :
-                    System.out.println( apostador.historicoDeApostasToString() );
-                    break;
-                default:
-                    break;
-            }
-           if(sair == 1){break;} 
-      }
-        
-    }
-    
-    
-    
-    public int consultarEventos(){
-        int i;
-        ArrayList<Evento> eventosDisponiveis = this.ConsultarEventos();//sao keys
-        ArrayList<Integer> opts = new ArrayList<Integer>();
-        
-        for( i=0; i < eventosDisponiveis.size() ;i++ ){
-            System.out.println( "op: "+ i + " - " + eventosDisponiveis.get(i).getKey() );
-            opts.add(i, eventosDisponiveis.get(i).getKey());//guarda cod evento
-        }
-        
-        int aux ;
-            
-        System.out.print("escolha evento> ");
-        Scanner opt = new Scanner(System.in);
-        aux = opt.nextInt();
-        System.out.println("Cod do Evento escolhido: " + opts.get(aux));
-            
-        
-      return opts.get(aux);
-    }
-    */
-    
-    
-    
-    
-   
     
 }

@@ -100,11 +100,45 @@ public class ApostadorUI {
         
         boolean b = true;
         Scanner input = new Scanner(System.in);
-        System.out.println("APOSTADOR USER INTERFACE");
+        
+        while(this.apostador == null && b){
+            System.out.println("YOU MUST BE LOGED TO USE THE SYSTEM:");
+            System.out.println("register username password credit");
+            System.out.println("login username password");
+            System.out.println("exit");
+            System.out.print(">");
+            String lg = input.nextLine();
+            String delims = "[ ]+";
+            String[] tokens = lg.split(delims);
+            switch(tokens[0]){
+                case "register":
+                    if(tokens.length == 4)
+                    this.apostador = this.facade.apostadorRegister(tokens[1], tokens[2], 
+                                                                    new Double(tokens[3]));
+                    break;
+                case "login":
+                    this.apostador = this.facade.apostLogin(tokens[1], tokens[2]);
+                    break;
+                case "exit":
+                    b = false;
+                    break;
+                default:
+                    System.out.println("ERROR: INVALID SYNTAX");
+                    break;
+            }
+        }
+        
+        /*System.out.println("APOSTADOR USER INTERFACE");
         System.out.println("print 'man' for help ");
         System.out.print(">");
-        String cmd = input.nextLine();
+        String cmd = input.nextLine();*/
         while(b){
+            
+            System.out.println("APOSTADOR USER INTERFACE");
+            System.out.println("print 'man' for help ");
+            System.out.print(">");
+            String cmd = input.nextLine();
+            
             String delims = "[ ]+";
             String[] tokens = cmd.split(delims);
             switch(tokens[0]){
@@ -151,12 +185,12 @@ public class ApostadorUI {
                 
             }
             
-            if(b){
+            /*if(b){
               System.out.println("APOSTADOR USER INTERFACE");
               System.out.println("print 'man' for help ");
               System.out.print(">");
               cmd = input.nextLine(); 
-          }
+          }*/
             
         }
             
