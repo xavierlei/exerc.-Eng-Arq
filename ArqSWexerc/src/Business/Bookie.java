@@ -55,15 +55,7 @@ public class Bookie implements MyObserver {
     public void setUsrName(String name){
         this.usrname = name;
     }
-    public void newEvent(Odd odd, String eq1, String eq2, int[] resultado,
-        GregorianCalendar inicio, GregorianCalendar fim, Integer key){
-        Evento e = new Evento(odd,eq1,eq2,inicio,fim,key,this);
-        this.eventos.put(key, e);
-    }
     public void interested(Integer k, Evento e){
-        //if(!eventos.containsKey(k)) return;
-        //this.interesses.put(k, this.eventos.get(k));
-        //this.eventos.get(k).addInteressado(this);
         this.interesses.put(k, e);
         e.addInteressado(this);
     }

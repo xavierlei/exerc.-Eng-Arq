@@ -168,7 +168,7 @@ public class ApostadorUI {
                     b = false;
                     break;
                 case "man":
-                    System.out.println("list");
+                    System.out.println(" list [open|closed|bookie_name] [and|or] [open|closed|bookie_name]");
                     System.out.println("bet key eq value");
                     System.out.println("notifications");
                     System.out.println("history");
