@@ -16,9 +16,6 @@ import Business.FilterPattern.Fechado;
 import Business.FilterPattern.Or;
 import Business.Notificacao;
 import Business.Odd;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 

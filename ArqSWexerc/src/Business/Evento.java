@@ -7,16 +7,8 @@ package Business;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
-import static jdk.nashorn.internal.parser.DateParser.DAY;
 
 /**
  *
@@ -24,7 +16,6 @@ import static jdk.nashorn.internal.parser.DateParser.DAY;
  */
 public class Evento extends Subject {
     private Integer key;
-    //private ArrayList<Float> odd;
     private Odd oddAtual;
     private String eq1;
     private String eq2;
@@ -57,8 +48,7 @@ public class Evento extends Subject {
     public Evento(Odd odd, String eq1, String eq2, 
             GregorianCalendar inicio, GregorianCalendar fim, Integer key, Bookie b) {
         
-        //this.odd = new ArrayList<Float>();
-        //    for(Float o: odd) this.odd.add(o);
+        
         this.oddAtual = odd;
         this.eq1 = eq1;
         this.eq2 = eq2;
@@ -73,20 +63,7 @@ public class Evento extends Subject {
         this.addObserver("todos", b);
     }
     
-    
-    //apagar mais tarde
-    public void printApostas(){
-        for( Apostador ap : this.listaApostas.keySet() ){
-            for(Aposta a : this.listaApostas.get(ap)){
-                System.out.println( a.getValorApostado() +" na equipa "+ a.getNomeDaEquipa());
-            }
-        }
-    }
-    
-    
-    
-    
-    
+   
     //Gets
     public Integer getKey(){
         return this.key;

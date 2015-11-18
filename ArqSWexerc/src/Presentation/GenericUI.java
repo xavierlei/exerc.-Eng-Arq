@@ -21,7 +21,7 @@ public class GenericUI {
     
     public GenericUI(Facade f){
         this.facade = f;
-        this.usr = null;
+        this.usr = null; //Bookie
         this.apostador = null;
     }
     

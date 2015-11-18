@@ -15,11 +15,9 @@ public class Aposta {
     
     private double valorApostado;
     private String nomeDaEquipa;
-    //private ArrayList<Float> odd;
     private Odd oddMomento;
-    
     private Boolean result_is_set;
-    private Boolean result; // false = perdeu || true = ganhou
+    private Boolean result; // false = perdeu | true = ganhou
     
 
     public Aposta(double valorApostado, String nomeDaEquipa) {
@@ -28,8 +26,6 @@ public class Aposta {
         this.oddMomento = new Odd(1,1,1);
         this.result_is_set = false;
         this.result = false;
-        //this.odd = new ArrayList<Float>();
-        //    for(Float o: odd) this.odd.add(o);
     }
 
     //  Sets
