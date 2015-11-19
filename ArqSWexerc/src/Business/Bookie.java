@@ -5,6 +5,8 @@
  */
 package Business;
 
+import Business.ObserverPattern.Subject;
+import Business.ObserverPattern.MyObserver;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
