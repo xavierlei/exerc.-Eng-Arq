@@ -147,12 +147,6 @@ public class BookieUI {
         }
         
         
-        /*System.out.println("BOOKIE USER INTERFACE");
-        System.out.println("print 'man' for help ");
-        System.out.print(">");
-        String cmd = input.nextLine();*/
-        
-        
         
         while(b){
             
@@ -210,14 +204,7 @@ public class BookieUI {
                   System.out.println("unknown command");
                   break;
           }
-            
-            
-          /*if(b){
-              System.out.println("BOOKIE USER INTERFACE");
-              System.out.println("print 'man' for help ");
-              System.out.print(">");
-              cmd = input.nextLine(); 
-          }  */
+         
         } 
     }
 }

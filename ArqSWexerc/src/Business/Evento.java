@@ -147,9 +147,7 @@ public class Evento extends Subject {
     
     
     
-    public void terminarEvento(int result[]){
-        this.aberto = false;
-        this.resultado = result;
+    private double atribuiPremios(HashMap<Apostador,ArrayList<Aposta>> listaApostas, int[]result){
         double totalGanho = 0;
         for(Apostador kApostador : this.listaApostas.keySet()){
             double totBc=0;
@@ -181,6 +179,14 @@ public class Evento extends Subject {
             notifyObserver("apostadores", kApostador, n);
             totalGanho +=totBc;
         }
+        return totalGanho;
+    }
+    
+    public void terminarEvento(int result[]){
+        this.aberto = false;
+        this.resultado = result;
+        double totalGanho = 0;
+        totalGanho = this.atribuiPremios(this.listaApostas, result);
         String msg = "o evento terminou com o resultado :: "+this.eq1+":"+this.resultado[0]
                      +" vs "+this.eq2+":"+this.resultado[1];
         Notificacao n = new Notificacao(this.key, msg);

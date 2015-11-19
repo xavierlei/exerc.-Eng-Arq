@@ -18,26 +18,26 @@ import java.util.Observer;
 public class Bookie implements MyObserver {
     private String usrname;
     private String passwd;
-    private HashMap<Integer, Evento> eventos;
+    //private HashMap<Integer, Evento> eventosEmPosse;
     private HashMap<Integer, Evento> interesses;
     private HashMap<Integer, Notificacao> notificacoes;
     
     
     public Bookie(String usr,String passwd){
         this.usrname = usr;
-        this.eventos = new HashMap<Integer,Evento>();
+       // this.eventosEmPosse = new HashMap<Integer,Evento>();
         this.interesses = new HashMap<Integer,Evento>();
         this.notificacoes = new HashMap<Integer,Notificacao>();
         this.passwd = passwd;
     }
     
     
-    public Bookie(String usr, HashMap<Integer, Evento> eventos){
+   /* public Bookie(String usr, HashMap<Integer, Evento> eventos){
         this.usrname = usr;
         this.eventos = eventos;
         this.interesses = new HashMap<Integer,Evento>();
         this.notificacoes = new HashMap<Integer,Notificacao>();
-    }
+    }*/
     
     
     public String getUsrName(){
@@ -59,9 +59,10 @@ public class Bookie implements MyObserver {
         this.interesses.put(k, e);
         e.addInteressado(this);
     }
-    public void closeEvent(Integer key, int result[]){
-        this.eventos.get(key).terminarEvento(result);
-    }
+   /* public void closeEvent(Integer key, int result[]){
+        this.eventosEmPosse.get(key).terminarEvento(result);
+    }*/
+
 
     @Override
     public void update(Subject o, Object arg) {

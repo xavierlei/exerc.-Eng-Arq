@@ -28,9 +28,8 @@ public class Or implements Criteria{
         ArrayList<Object> res1 = crit1.meetCriteria(objects);
         ArrayList<Object> res2 = crit2.meetCriteria(objects);
         for(Object o : res2){
-            Evento e = (Evento)o;
-            if(!res1.contains(e))
-                res1.add(e);
+            if(!res1.contains(o))
+                res1.add(o);
         }
         return res1;
     }
