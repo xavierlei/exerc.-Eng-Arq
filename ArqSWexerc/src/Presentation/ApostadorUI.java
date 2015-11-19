@@ -15,6 +15,7 @@ import Business.FilterPattern.Dono;
 import Business.FilterPattern.Fechado;
 import Business.FilterPattern.Or;
 import Business.Notificacao;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -86,8 +87,15 @@ public class ApostadorUI {
                 }
             }
             if(good_syntax){
-                for(Evento e : c0.meetCriteria(this.facade.ConsultarEventos()))
+                ArrayList<Object> objs = new ArrayList<Object>();
+                for(Evento e : this.facade.ConsultarEventos()){
+                    Object o = (Object)e;
+                    objs.add(o);
+                }
+                for(Object o : c0.meetCriteria(objs)){
+                    Evento e = (Evento)o;
                     System.out.println(e.toString());
+                }
             }
             else{
                 System.out.println("SYNTAX ERROR");

@@ -16,9 +16,11 @@ public class Aberto implements Criteria{
     
    
     @Override
-    public ArrayList<Evento> meetCriteria(ArrayList<Evento> eventos) {
-        ArrayList<Evento> res = new ArrayList<Evento>();
-        for(Evento e : eventos){
+    public ArrayList<Object> meetCriteria(ArrayList<Object> objects) {
+        ArrayList<Object> res = new ArrayList<Object>();
+        
+        for(Object o : objects){
+            Evento e = (Evento)o;
             if(e.isOpen())
                 res.add(e);
         }

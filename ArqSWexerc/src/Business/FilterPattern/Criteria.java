@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author xavier
  */
 public interface Criteria {
-    public ArrayList<Evento> meetCriteria(ArrayList<Evento> evento);
+    public ArrayList<Object> meetCriteria(ArrayList<Object> objects);
     public Criteria clone();
 }
 

@@ -23,8 +23,8 @@ public class And implements Criteria{
     }
 
     @Override
-    public ArrayList<Evento> meetCriteria(ArrayList<Evento> eventos) {
-        ArrayList<Evento> resCrit1 = crit1.meetCriteria(eventos);
+    public ArrayList<Object> meetCriteria(ArrayList<Object> objects) {
+        ArrayList<Object> resCrit1 = crit1.meetCriteria(objects);
         return crit2.meetCriteria(resCrit1);
     }
 

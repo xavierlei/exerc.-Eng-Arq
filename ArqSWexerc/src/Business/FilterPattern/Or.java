@@ -24,10 +24,11 @@ public class Or implements Criteria{
     }
 
     @Override
-    public ArrayList<Evento> meetCriteria(ArrayList<Evento> eventos) {
-        ArrayList<Evento> res1 = crit1.meetCriteria(eventos);
-        ArrayList<Evento> res2 = crit2.meetCriteria(eventos);
-        for(Evento e : res2){
+    public ArrayList<Object> meetCriteria(ArrayList<Object> objects) {
+        ArrayList<Object> res1 = crit1.meetCriteria(objects);
+        ArrayList<Object> res2 = crit2.meetCriteria(objects);
+        for(Object o : res2){
+            Evento e = (Evento)o;
             if(!res1.contains(e))
                 res1.add(e);
         }
