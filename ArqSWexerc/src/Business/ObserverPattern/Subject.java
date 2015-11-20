@@ -16,23 +16,26 @@ import java.util.Observer;
  */
 public class Subject {
     private HashMap<String,ArrayList<MyObserver>> obs;
-    private boolean changedTodos = false;
-    private boolean changedApostadores = false;
-    private boolean changedInteressados = false;
+    
+    private boolean changed = false;
+    
+    //private boolean changedTodos = false;
+    //private boolean changedApostadores = false;
+    //private boolean changedInteressados = false;
     
     
     public Subject(){
         this.obs = new HashMap< String, ArrayList<MyObserver> >();
-        ArrayList<MyObserver> todos = new ArrayList<MyObserver>();
-        ArrayList<MyObserver> apostadores = new ArrayList<MyObserver>();
-        ArrayList<MyObserver> interessados = new ArrayList<MyObserver>();
-        this.obs.put("todos", todos);
-        this.obs.put("apostadores", todos);
-        this.obs.put("interessados", todos);
+        //ArrayList<MyObserver> todos = new ArrayList<MyObserver>();
+        //ArrayList<MyObserver> apostadores = new ArrayList<MyObserver>();
+        //ArrayList<MyObserver> interessados = new ArrayList<MyObserver>();
+        //this.obs.put("todos", todos);
+        //this.obs.put("apostadores", todos);
+        //this.obs.put("interessados", todos);
     }
     
     public void addObserver(String categoria, MyObserver obs){
-        if(categoria.equals("todos")){
+        /*if(categoria.equals("todos")){
             if(!this.obs.get(categoria).contains(obs)){
                 this.obs.get(categoria).add(obs);
             }  
@@ -46,21 +49,35 @@ public class Subject {
             if(!this.obs.get(categoria).contains(obs)){
                 this.obs.get(categoria).add(obs);
             }
+        }*/
+        
+        if(this.obs.containsKey(categoria)){
+            if(!this.obs.get(categoria).contains(obs)){
+                this.obs.get(categoria).add(obs);
+            }
+        }
+        else{
+            ArrayList<MyObserver> o = new ArrayList<MyObserver>();
+            o.add(obs);
+            this.obs.put(categoria, o);
         }
     }
     public void deleteObserver(String categoria, MyObserver obs){
-        if(categoria.equals("todos")){
+        /*if(categoria.equals("todos")){
             this.obs.get(categoria).remove(obs);
         }
         if(categoria.equals("apostadores")){
             this.obs.get(categoria).remove(obs);
         }
         if(categoria.equals("interessados")){
+            this.obs.get(categoria).remove(obs);
+        }*/
+        if(this.obs.containsKey(categoria)){
             this.obs.get(categoria).remove(obs);
         }
     }
     public void deleteObservers(String categoria){
-        if(categoria.equals("todos")){
+       /* if(categoria.equals("todos")){
             this.obs.get(categoria).clear();
         }
         if(categoria.equals("apostadores")){
@@ -68,10 +85,13 @@ public class Subject {
         }
         if(categoria.equals("interessados")){
             this.obs.get(categoria).clear();
+        }*/
+        if(this.obs.containsKey(categoria)){
+            this.obs.get(categoria).clear();
         }
     }
     public void setChanged(String categoria){
-        if(categoria.equals("todos")){
+       /* if(categoria.equals("todos")){
             this.changedTodos = true;
         }
         if(categoria.equals("apostadores")){
@@ -79,10 +99,11 @@ public class Subject {
         }
         if(categoria.equals("interessados")){
             this.changedInteressados = true;
-        }
+        }*/
+        this.changed = true;
     }
     public boolean hasChanged(String categoria){
-        if(categoria.equals("todos")){
+       /* if(categoria.equals("todos")){
             return this.changedTodos;
         }
         else if(categoria.equals("apostadores")){
@@ -90,11 +111,12 @@ public class Subject {
         }
         else if(categoria.equals("interessados")){
             return this.changedInteressados;
-        }
-        else return false;
+        }*/
+        return this.changed;
+        //else return false;
     }
     public void clearChanged(String categoria){
-        if(categoria.equals("todos")){
+        /*if(categoria.equals("todos")){
             this.changedTodos = false;
         }
         else if(categoria.equals("apostadores")){
@@ -102,10 +124,11 @@ public class Subject {
         }
         else if(categoria.equals("interessados")){
             this.changedInteressados = false;
-        }
+        }*/
+        this.changed = false;
     }
     public void notifyObservers(String categoria){
-        if(categoria.equals("todos") && hasChanged(categoria)){
+        /*if(categoria.equals("todos") && hasChanged(categoria)){
             for(MyObserver observer : this.obs.get(categoria)){
                 observer.update(this,null);
             }
@@ -122,10 +145,16 @@ public class Subject {
                 observer.update(this,null);
             }
             clearChanged(categoria);
+        }*/
+        if(this.obs.containsKey(categoria)){
+            for(MyObserver o : this.obs.get(categoria)){
+                o.update(this, o);
+            }
+            clearChanged(categoria);
         }
     }
     public void notifyObservers(String categoria, Object arg){
-        if(categoria.equals("todos") && hasChanged(categoria) ){
+        /*if(categoria.equals("todos") && hasChanged(categoria) ){
             for(MyObserver observer : this.obs.get(categoria)){
                 observer.update(this,arg);
             }
@@ -142,11 +171,17 @@ public class Subject {
                 observer.update(this,arg);
             }
             clearChanged(categoria);
+        }*/
+        if(this.obs.containsKey(categoria) && hasChanged(categoria)){
+            for(MyObserver observer : this.obs.get(categoria)){
+                observer.update(this, arg);
+            }
+            clearChanged(categoria);
         }
     }
     public void notifyObserver(String categoria, MyObserver observer, Object arg){
         int index;
-        if(categoria.equals("todos")){
+        /*if(categoria.equals("todos")){
             if(this.obs.get(categoria).contains(observer)){
                 index = this.obs.get(categoria).indexOf(observer);
                 this.obs.get(categoria).get(index).update(this, arg);
@@ -165,6 +200,12 @@ public class Subject {
                 index = this.obs.get(categoria).indexOf(observer);
                 this.obs.get(categoria).get(index).update(this, arg);
                 clearChanged(categoria);
+            }
+        }*/
+        if(this.obs.containsKey(categoria)){
+            if(this.obs.get(categoria).contains(observer)){
+                index = this.obs.get(categoria).indexOf(observer);
+                this.obs.get(categoria).get(index).update(this, arg);
             }
         }
     }
